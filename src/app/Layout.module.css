@@ -3,7 +3,7 @@
 .border {
   margin: 0;
   border: 25px solid transparent;
-  border-image: url("/pattern.jpg") 300 round;
+  border-image: url("/pattern.jpg") 290 round;
 }
 
 .newland {
@@ -22,6 +22,26 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.poleContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.poles {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.pole {
+  background-image: url("/pole.jpg");
+  background-size: 100% 100%;
+  width: 25px;
+  height: 35px;
 }
 
 @media (min-width: 500px) {
