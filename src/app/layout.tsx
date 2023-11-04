@@ -4,7 +4,8 @@ import styles from '@/app/Layout.module.css';
 import fill from '@/app/Fill.module.css';
 import localFont from 'next/font/local';
 import { ClerkProvider } from '@clerk/nextjs';
-import Nav from '../components/Nav';
+import Nav from '@/components/Nav';
+import Pole from '@/components/Pole';
 
 const medievalSharp = localFont({
   src: './font/MedievalSharp-Regular.ttf',
@@ -23,88 +24,49 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
-    <html lang="en">
-      <body className={medievalSharp.className}>
-        <header>
-          <div className={styles.border}>
-            <div className={styles.newland}>
-              <div className={styles.blur}>
-                <div className={styles.title}>WAZI</div>
-                <div className={styles.subtitle}>The New Land</div>
+      <html lang="en">
+        <body className={medievalSharp.className}>
+          <header>
+            <div className={styles.border}>
+              <div className={styles.newland}>
+                <div className={styles.blur}>
+                  <div className={styles.title}>WAZI</div>
+                  <div className={styles.subtitle}>The New Land</div>
+                </div>
               </div>
             </div>
-          </div>
-        </header>
+          </header>
 
-          <div className={styles.poleContainer}>
-            <div className={styles.poles}>
-              <div className={styles.pole}></div>
-            </div>
-            <div className={styles.poles}>
-              <div className={styles.pole}></div>
-            </div>
-            <div className={styles.poles}>
-              <div className={styles.pole}></div>
-            </div>
-            <div className={styles.poles}>
-              <div className={styles.pole}></div>
-            </div>
-          </div>
+          <Pole />
 
-        <section>
-          <div className={styles.border}>
-            <div className={fill.fill}>
-              <Nav />
+          <section>
+            <div className={styles.border}>
+              <div className={fill.fill}>
+                <Nav />
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-          <div className={styles.poleContainer}>
-            <div className={styles.poles}>
-              <div className={styles.pole}></div>
-            </div>
-            <div className={styles.poles}>
-              <div className={styles.pole}></div>
-            </div>
-            <div className={styles.poles}>
-              <div className={styles.pole}></div>
-            </div>
-            <div className={styles.poles}>
-              <div className={styles.pole}></div>
-            </div>
-          </div>
+          <Pole />
 
-        <main>
-          <div className={styles.border}>
-            {children}
-          </div>
-        </main>
+          <main>
+            <div className={styles.border}>
+              {children}
+            </div>
+          </main>
 
-        
-          <div className={styles.poleContainer}>
-            <div className={styles.poles}>
-              <div className={styles.pole}></div>
-            </div>
-            <div className={styles.poles}>
-              <div className={styles.pole}></div>
-            </div>
-            <div className={styles.poles}>
-              <div className={styles.pole}></div>
-            </div>
-            <div className={styles.poles}>
-              <div className={styles.pole}></div>
-            </div>
-          </div>
 
-        <footer>
-          <div className={styles.border}>
-            <div className={fill.fill}>
+          <Pole />
 
+          <footer>
+            <div className={styles.border}>
+              <div className={fill.fill}>
+
+              </div>
             </div>
-          </div>
-        </footer>
-      </body>
-    </html>
+          </footer>
+        </body>
+      </html>
     </ClerkProvider>
   )
 }
