@@ -6,6 +6,7 @@ import localFont from 'next/font/local';
 import { ClerkProvider } from '@clerk/nextjs';
 import Nav from '@/components/Nav';
 import Pole from '@/components/Pole';
+import Footer from '@/components/Footer';
 
 const medievalSharp = localFont({
   src: './font/MedievalSharp-Regular.ttf',
@@ -61,7 +62,7 @@ export default function RootLayout({
           <footer>
             <div className={styles.border}>
               <div className={fill.fill}>
-
+                <Footer />
               </div>
             </div>
           </footer>

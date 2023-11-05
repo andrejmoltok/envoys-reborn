@@ -17,13 +17,25 @@
 }
 
 .formButtonPrimary,
-.button,
+.button {
+  background-color: #252c36;
+  color: darkgoldenrod;
+}
+
+.formButtonPrimary:hover,
 .button:hover {
   background-color: #252c36;
+  color: crimson;
 }
 
 .footerAction,
 .footerActionLink {
   color: #252c36;
+  text-decoration: none;
+}
+
+.footerAction:hover,
+.footerActionLink:hover {
+  color: crimson;
   text-decoration: none;
 }
