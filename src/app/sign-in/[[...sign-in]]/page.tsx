@@ -3,8 +3,8 @@
 import { SignIn } from "@clerk/nextjs";
 import React, { useState, useEffect } from 'react';
 import { useSignIn } from "@clerk/nextjs";
-import styles from '@/app/Sign.module.css';
- 
+import styles from '@/styles/Sign.module.css';
+
 export default function Page() {
 
   const { isLoaded } = useSignIn();
@@ -33,16 +33,16 @@ export default function Page() {
   return (
     <div className={styles.signin}>
       <SignIn appearance={{
-          elements: {
-            formButtonPrimary: styles.formButtonPrimary,
-            button: styles.button,
-            signInroot: styles.signInroot,
-            card: styles.card,
-            signInstart: styles.signInstart,
-            footerAction: styles.footerAction,
-            footerActionLink: styles.footerActionLink
-          },
-        }}/>
+        elements: {
+          formButtonPrimary: styles.formButtonPrimary,
+          button: styles.button,
+          signInroot: styles.signInroot,
+          card: styles.card,
+          signInstart: styles.signInstart,
+          footerAction: styles.footerAction,
+          footerActionLink: styles.footerActionLink
+        },
+      }} />
     </div>
   )
 }

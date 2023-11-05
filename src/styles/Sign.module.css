@@ -17,7 +17,8 @@
 }
 
 .formButtonPrimary,
-.button {
+.button,
+.button:hover {
   background-color: #252c36;
 }
 

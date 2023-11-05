@@ -1,4 +1,4 @@
-import styles from '@/components/Pole.module.css';
+import styles from '@/styles/Pole.module.css';
 import React from 'react';
 
 export default function Pole() {

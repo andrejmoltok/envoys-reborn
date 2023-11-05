@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css';
-import styles from '@/app/Layout.module.css';
-import fill from '@/app/Fill.module.css';
+import styles from '@/styles/Layout.module.css';
+import fill from '@/styles/Fill.module.css';
 import localFont from 'next/font/local';
 import { ClerkProvider } from '@clerk/nextjs';
 import Nav from '@/components/Nav';
