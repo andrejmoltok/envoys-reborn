@@ -2,6 +2,7 @@
 
 .border {
   margin: 0;
+  min-width: 100px;
   border: 25px solid transparent;
   border-image: url("/pattern.jpg") 290 round;
 }
