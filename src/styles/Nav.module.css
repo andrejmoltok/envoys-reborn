@@ -114,3 +114,15 @@
     display: block;
   }
 }
+
+@media (min-width: 1150px) {
+  .navbar {
+    display: flex;
+  }
+  .shrunkMenu1150 {
+    display: none;
+  }
+  .hamburgerMenuIcon {
+    display: none;
+  }
+}
