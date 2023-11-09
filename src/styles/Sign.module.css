@@ -2,7 +2,7 @@
 
 .signin,
 .signup {
-  width: 456px;
+  max-width: 456px;
   margin: auto;
   display: flex;
   flex-direction: column;

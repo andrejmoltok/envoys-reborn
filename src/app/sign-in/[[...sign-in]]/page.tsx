@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { useSignIn } from "@clerk/nextjs";
 import styles from '@/styles/Sign.module.css';
 
-export default function Page() {
+export default function Page({ }) {
 
   const { isLoaded } = useSignIn();
 
