@@ -86,8 +86,8 @@ export default function Nav() {
     // move dropdown menu on resize between 775 and 1150 pixels
     const handleResize1150 = () => {
       const iconRect = menuIcon1150?.getBoundingClientRect();
-      const iconleft = iconRect?.right + window.scrollX - 140;
-      const newTop = iconRect?.bottom + window.scrollY + 18;
+      const iconleft = iconRect?.right! + window.scrollX - 140;
+      const newTop = iconRect?.bottom! + window.scrollY + 18;
       console.log('screenY', newTop, 'screenX', iconleft, 'windowWidth', windowWidth);
       setMenuTopLeft({ screenY: newTop, screenX: iconleft });
     }
@@ -95,8 +95,8 @@ export default function Nav() {
     // move dropdown menu on resize between for 775 and lower pixels
     const handleResize775 = () => {
       const iconRect = menuIcon775?.getBoundingClientRect();
-      const iconleft = iconRect?.right + window.scrollX - 140;
-      const newTop = iconRect?.bottom + window.scrollY + 18;
+      const iconleft = iconRect?.right! + window.scrollX - 140;
+      const newTop = iconRect?.bottom! + window.scrollY + 18;
       console.log('screenY', newTop, 'screenX', iconleft, 'windowWidth', windowWidth);
       setMenuTopLeft({ screenY: newTop, screenX: iconleft });
     }
