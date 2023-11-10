@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
@@ -16,12 +16,14 @@ import {
   faPersonCircleMinus,
   faMonument
 } from '@fortawesome/free-solid-svg-icons';
+import { useConvexAuth } from 'convex/react';
 // import Profile from '@/components/Profile';
 
 export default function Nav() {
 
   // Clerk authentication check
-  const { isSignedIn, isLoaded } = useAuth();
+  const { isLoaded } = useAuth();
+  const { isAuthenticated } = useConvexAuth();
 
   // state for dropdown menu toggle
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -157,10 +159,10 @@ export default function Nav() {
         <div className={styles.navitem}>
           <Link className={styles.link} href="/forums_ooc"><FontAwesomeIcon icon={faPersonCircleMinus} style={{ color: "#252c36", }} /> OOC</Link>
         </div>
-        {(isLoaded && isSignedIn) && <div className={styles.userbutton}>
+        {(isLoaded && isAuthenticated) && <div className={styles.userbutton}>
           <UserButton afterSignOutUrl='/' />
         </div>}
-        {!isSignedIn && <>
+        {!isAuthenticated && <>
           <div className={styles.navitem}>
             <Link className={styles.link} href="/sign-in"><FontAwesomeIcon icon={faArrowRightToBracket} style={{ color: "#252c36", }} /> Sign In</Link>
           </div>
@@ -207,9 +209,9 @@ export default function Nav() {
               <div className={styles.navitem}>
                 <Link className={styles.link} onClick={() => setIsOpen(false)} href="/forums_ooc"><FontAwesomeIcon icon={faPersonCircleMinus} style={{ color: "#252c36", }} /> OOC</Link>
               </div>
-              {(isLoaded && isSignedIn) && <div className={styles.userbutton}>
+              {(isLoaded && isAuthenticated) && <div className={styles.userbutton}>
                 <UserButton afterSignOutUrl='/' /></div>}
-              {!isSignedIn && <>
+              {!isAuthenticated && <>
                 <div className={styles.navitem}>
                   <Link className={styles.link} href="/sign-in" onClick={() => setIsOpen(false)}><FontAwesomeIcon icon={faArrowRightToBracket} style={{ color: "#252c36", }} /> Sign In</Link>
                 </div>
@@ -238,9 +240,9 @@ export default function Nav() {
               <div className={styles.navitem}>
                 <Link className={styles.link} onClick={() => setIsOpen(false)} href="/forums_ooc"><FontAwesomeIcon icon={faPersonCircleMinus} style={{ color: "#252c36", }} /> OOC</Link>
               </div>
-              {(isLoaded && isSignedIn) && <div className={styles.userbutton}>
+              {(isLoaded && isAuthenticated) && <div className={styles.userbutton}>
                 <UserButton afterSignOutUrl='/' /></div>}
-              {!isSignedIn && <>
+              {!isAuthenticated && <>
                 <div className={styles.navitem}>
                   <Link className={styles.link} href="/sign-in" onClick={() => setIsOpen(false)}><FontAwesomeIcon icon={faArrowRightToBracket} style={{ color: "#252c36", }} /> Sign In</Link>
                 </div>
