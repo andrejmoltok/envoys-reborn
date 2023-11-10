@@ -1,0 +1,9 @@
+/** @format */
+
+.fill {
+  width: 100%;
+  min-height: 55px;
+  /* background-image: url("/grunge.jpg");
+  background-size: 100% 100%; */
+  background-color: darkgoldenrod;
+}

@@ -1,0 +1,11 @@
+/** @format */
+
+.signin,
+.signup {
+  max-width: 456px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

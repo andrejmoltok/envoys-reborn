@@ -5,10 +5,11 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background-image: url("/grunge.jpg");
-  background-size: cover;
+  /* background-image: url("/grunge.jpg");
+  background-size: cover; */
+  background-color: #252c36;
 }
 
 body {
-  margin: 30px;
+  margin: 15px;
 }
