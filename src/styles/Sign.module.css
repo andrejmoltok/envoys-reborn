@@ -9,38 +9,3 @@
   justify-content: center;
   align-items: center;
 }
-
-.card,
-.signInstart,
-.signUpstart {
-  background-color: darkgoldenrod;
-}
-
-.formButtonPrimary,
-.button {
-  background-color: #252c36;
-  color: darkgoldenrod;
-}
-
-.formButtonPrimary:hover,
-.button:hover {
-  background-color: #252c36;
-  color: crimson;
-}
-
-.otpCodeField,
-.otpCodeFieldInputs {
-  background-color: white !important;
-}
-
-.footerAction,
-.footerActionLink {
-  color: #252c36;
-  text-decoration: none;
-}
-
-.footerActionLink:hover {
-  color: crimson;
-  text-decoration: none;
-  background-color: #252c36;
-}

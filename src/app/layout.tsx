@@ -48,16 +48,11 @@ export default function RootLayout({
             </div>
           </section>
 
-
-
           <Pole />
 
           <main>
-            <div className={styles.border}>
-              {children}
-            </div>
+            {children}
           </main>
-
 
           <Pole />
 

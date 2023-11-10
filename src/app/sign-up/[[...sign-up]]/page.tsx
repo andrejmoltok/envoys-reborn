@@ -3,7 +3,9 @@
 import { SignUp } from "@clerk/nextjs";
 import React, { useState, useEffect } from 'react';
 import { useSignUp } from "@clerk/nextjs";
-import styles from '@/styles/Sign.module.css';
+import style from '@/styles/Sign.module.css';
+import styles from '@/styles/Layout.module.css';
+import fill from '@/styles/Fill.module.css';
 
 export default function Page() {
 
@@ -31,17 +33,14 @@ export default function Page() {
   }, [isClerkLoaded]);
 
   return (
-    <div className={styles.signup}>
-      <SignUp appearance={{
-        elements: {
-          formButtonPrimary: styles.formButtonPrimary,
-          button: styles.button,
-          card: styles.card,
-          signUpstart: styles.signUpstart,
-          footerAction: styles.footerAction,
-          footerActionLink: styles.footerActionLink
-        },
-      }} />
-    </div>
+    <>
+      <div className={styles.border}>
+        <div className={fill.fill}>
+          <div className={style.signup}>
+            <SignUp />
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
