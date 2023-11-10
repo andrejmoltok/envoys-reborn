@@ -73,14 +73,14 @@ export default function Nav() {
 
     // put dropdown menu to calculated coordinates between 775 and 1150 pixels
     const iconRect1150 = menuIcon1150?.getBoundingClientRect();
-    const iconLeft1150 = iconRect1150?.right + window.scrollX - 140;
-    const newTop1150 = iconRect1150?.bottom + window.scrollY + 18;
+    const iconLeft1150 = iconRect1150?.right! + window.scrollX - 140;
+    const newTop1150 = iconRect1150?.bottom! + window.scrollY + 18;
     setMenuTopLeft({ screenY: newTop1150, screenX: iconLeft1150 });
 
     // put dropdown menu to claculated coordinates for 775 and lower pixels
     const iconRect775 = menuIcon775?.getBoundingClientRect();
-    const iconLeft775 = iconRect775?.right + window.scrollX - 140;
-    const newTop775 = iconRect775?.bottom + window.scrollY + 18;
+    const iconLeft775 = iconRect775?.right! + window.scrollX - 140;
+    const newTop775 = iconRect775?.bottom! + window.scrollY + 18;
     setMenuTopLeft({ screenY: newTop775, screenX: iconLeft775 });
 
     // move dropdown menu on resize between 775 and 1150 pixels
