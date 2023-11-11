@@ -23,7 +23,20 @@ export default defineSchema({
         //user.updated_at
         updated_at: v.string(),
 
+        /* Player specific data */
+        //user role set at registration
+        role: v.string(),
+
+        //serial number with hash of player, e.g #10911
+        serial: v.string(),
+
+        //sex of the player
+        sex: v.string(),
+
+        
+
         //unique token
         tokenIdentifier: v.string(),
     }).index("by_token", ["tokenIdentifier"]),
+
 });
