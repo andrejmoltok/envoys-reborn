@@ -1,11 +1,33 @@
 /** @format */
 
+.container {
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .border {
   margin: 0;
   min-width: 100px;
   border: 25px solid transparent;
   border-image: url("/pattern.jpg") 290 round;
 }
+
+/* .borderHomeAside {
+  margin: 0;
+  min-width: 140px;
+  border: 25px solid transparent;
+  border-image: url("/pattern.jpg") 290 round;
+}
+
+.borderHomeMain {
+  margin: 0;
+  width: 80%;
+  border: 25px solid transparent;
+  border-image: url("/pattern.jpg") 290 round;
+} */
 
 .newland {
   background-image: url("/newland.jpg");
