@@ -22,11 +22,8 @@ export const storeUser = mutation({
     }
 
     // Check if we've already stored this identity before.
-    const user = await ctx.db
-      .query("users")
-      .withIndex("by_token", (q) =>
-        q.eq("tokenIdentifier", identity.tokenIdentifier)
-      )
+    const user = await ctx.db.query("users")
+      .filter(q => q.eq(q.field("tokenIdentifier"), identity.tokenIdentifier))
       .unique();
     if (user !== null) {
       // If we've seen this identity before but the name has changed, patch the value.
@@ -43,6 +40,9 @@ export const storeUser = mutation({
       nickname: identity.nickname!,
       email_verified: identity.emailVerified!,
       updated_at: identity.updatedAt!,
+      role: "User",
+      serial: addSerial.toString(),
+      sex: "",
       tokenIdentifier: identity.tokenIdentifier,
     });
   },
@@ -78,4 +78,12 @@ export const readUserById = query({
   handler: async (ctx, args) => {
     return await ctx.db.get(args.userId)
   }
+});
+
+export const addSerial = query({
+  args: {},
+  handler: () => {
+    const userCount = readAllUsers.length
+    return '#' + (userCount + 1)
+  },
 });

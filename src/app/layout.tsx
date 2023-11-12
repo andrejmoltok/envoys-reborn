@@ -16,7 +16,7 @@ import Footer from '@/components/Footer';
 import ConvexClientProvider from "./ConvexClientProvider";
 
 export const metadata: Metadata = {
-  title: "WAZI - Forums-based role-playing fantasy game",
+  title: "Envoys Reborn - Forum-based role-playing fantasy game",
   description: "Medieval style role-playing fantasy game",
 };
 
@@ -40,7 +40,7 @@ export default function RootLayout({
                 <div className={styles.border}>
                   <div className={styles.newland}>
                     <div className={styles.blur}>
-                      <div className={styles.title}>WAZI</div>
+                      <div className={styles.title}>Envoys Reborn</div>
                       <div className={styles.subtitle}>The New Land</div>
                     </div>
                   </div>
