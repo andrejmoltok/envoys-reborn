@@ -2,7 +2,7 @@
 export default {
     providers: [
         {
-            domain: "https://enormous-quail-19.clerk.accounts.dev/",
+            domain: "https://settling-asp-14.clerk.accounts.dev",
             applicationID: "convex",
         },
     ]
