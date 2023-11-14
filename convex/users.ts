@@ -14,8 +14,13 @@ import { v } from "convex/values";
  * by the JWT token's Claims config.
  */
 export const storeUser = mutation({
-  args: {},
-  handler: async (ctx) => {
+  args: {
+    sex: v.string(),
+    serial: v.string(),
+    raceSelect: v.string(),
+    gameStyle: v.string(),
+  },
+  handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) {
       throw new Error("Called storeUser without authentication present");
@@ -41,12 +46,12 @@ export const storeUser = mutation({
       email_verified: identity.emailVerified!,
       updated_at: identity.updatedAt!,
       role: "User",
-      serial: addSerial.toString(),
+      serial: args.serial,
       level: 1,
-      rank: "",
-      sex: "",
+      rank: "beginner",
+      sex: args.sex,
       money: 100,
-      raceSelect: "",
+      raceSelect: args.raceSelect,
       strengthBonus: 0,
       dexterityBonus: 0,
       constitutionBonus: 0,
@@ -58,7 +63,7 @@ export const storeUser = mutation({
       innerDescription: "",
       backStory: "",
       notes: "",
-      gameStyle: "",
+      gameStyle: args.gameStyle,
       belief: "",
       events: "",
       backpack: "",
@@ -71,7 +76,7 @@ export const storeUser = mutation({
 
 export const readAllUsers = query({
   args: {},
-  handler: async (ctx) => {
+  handler: async (ctx, args) => {
     return await ctx.db.query("users").collect();
   },
 });
@@ -103,8 +108,8 @@ export const readUserById = query({
 
 export const addSerial = query({
   args: {},
-  handler: () => {
-    const userCount = readAllUsers.length
-    return '#' + (userCount + 1)
+  handler: async (ctx, args) => {
+    const userCount = await readAllUsers(ctx, args);
+    return ('#' + (userCount.length + 1)).toString();
   },
 });

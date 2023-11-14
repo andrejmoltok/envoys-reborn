@@ -1,0 +1,52 @@
+/** @format */
+
+.setup {
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.intro {
+  margin: 0;
+  width: inherit;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1.35rem;
+}
+
+.fields {
+  margin: 10px auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* .fields > div, */
+#unique > div > label {
+  margin: 5px auto;
+  width: 450px;
+  font-size: 1.115rem;
+}
+
+#unique > div > label {
+  text-decoration: underline;
+}
+
+#unique {
+  margin: 5px auto;
+  min-width: 400px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  overflow: auto;
+}
+
+#unique > div > select {
+  margin: auto;
+  width: 80px;
+}
