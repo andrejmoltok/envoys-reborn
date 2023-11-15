@@ -33,12 +33,12 @@ export default function Page() {
     const [raceSelect, setRaceSelect] = useState<string>("human");
     const [gameStyle, setGameStyle] = useState<string>("lightcore");
     const [abilityScore, setAbilityScore] = useState<AbilityScore>({
-        charisma: 0,
-        constitution: 0,
-        dexterity: 0,
-        intelligence: 0,
-        strength: 0,
-        wisdom: 0
+        charisma: 1,
+        constitution: 1,
+        dexterity: 1,
+        intelligence: 1,
+        strength: 1,
+        wisdom: 1
     });
 
     const serializer = useQuery(api.users.addSerial) as string;
@@ -65,6 +65,28 @@ export default function Page() {
         wisdomBonus: abilityScore.wisdom,
     };
 
+    const setAbilityScoresByRace = (race: string) => {
+        switch (race) {
+            case 'human':
+                return setAbilityScore({ charisma: 1, intelligence: 1, wisdom: 1, constitution: 1, strength: 1, dexterity: 1 });
+            case 'elf':
+                return setAbilityScore({ charisma: 0, intelligence: 0, wisdom: 1, constitution: 0, strength: 0, dexterity: 2 });
+            case 'dwarf':
+                return setAbilityScore({ charisma: 0, intelligence: 0, wisdom: 0, constitution: 2, strength: 2, dexterity: 0 });
+            case 'orc':
+                return setAbilityScore({ charisma: 0, intelligence: 0, wisdom: 0, constitution: 1, strength: 2, dexterity: 0 });
+            case 'devil':
+                return setAbilityScore({ charisma: 2, intelligence: 1, wisdom: 0, constitution: 0, strength: 0, dexterity: 0 });
+            case 'gnome':
+                return setAbilityScore({ charisma: 0, intelligence: 2, wisdom: 0, constitution: 0, strength: 0, dexterity: 1 });
+            case 'darkelf':
+                return setAbilityScore({ charisma: 1, intelligence: 0, wisdom: 0, constitution: 0, strength: 0, dexterity: 2 });
+
+            default:
+                return setAbilityScore({ charisma: 1, intelligence: 1, wisdom: 1, constitution: 1, strength: 1, dexterity: 1 });
+        }
+    };
+
     return (
         <>
             <div className={style.border}>
@@ -84,6 +106,12 @@ export default function Page() {
                                 <div><label htmlFor="emailaddress">Email Address:</label></div>
                                 <div><label htmlFor="sex">Sex:</label></div>
                                 <div><label htmlFor="race">Race select:</label></div>
+                                <div><label htmlFor="charisma">Charisma:</label></div>
+                                <div><label htmlFor="charisma">Constitution:</label></div>
+                                <div><label htmlFor="charisma">Dexterity:</label></div>
+                                <div><label htmlFor="charisma">Intelligence:</label></div>
+                                <div><label htmlFor="charisma">Strength:</label></div>
+                                <div><label htmlFor="charisma">Wisdom:</label></div>
                                 <div><label htmlFor="gameStyle">Game style:</label></div>
                             </div>
 
@@ -97,7 +125,7 @@ export default function Page() {
                                     </select>
                                 </div>
                                 <div>
-                                    <select id="race" onClick={(e) => { setRaceSelect((e.target as HTMLSelectElement).value) }}>
+                                    <select id="race" onClick={(e) => { setRaceSelect((e.target as HTMLSelectElement).value), setAbilityScoresByRace((e.target as HTMLSelectElement).value) }}>
                                         <option value="human">Human</option>
                                         <option value="elf">Elf</option>
                                         <option value="dwarf">Dwarf</option>
@@ -106,6 +134,26 @@ export default function Page() {
                                         <option value="gnome">Gnome</option>
                                         <option value="darkelf">Dark Elf</option>
                                     </select>
+                                </div>
+                                <div>
+                                    <div>
+                                        {abilityScore.charisma === 0 ? "" : "+"}{abilityScore.charisma}
+                                    </div>
+                                    <div>
+                                        {abilityScore.constitution === 0 ? "" : "+"}{abilityScore.constitution}
+                                    </div>
+                                    <div>
+                                        {abilityScore.dexterity === 0 ? "" : "+"}{abilityScore.dexterity}
+                                    </div>
+                                    <div>
+                                        {abilityScore.intelligence === 0 ? "" : "+"}{abilityScore.intelligence}
+                                    </div>
+                                    <div>
+                                        {abilityScore.strength === 0 ? "" : "+"}{abilityScore.strength}
+                                    </div>
+                                    <div>
+                                        {abilityScore.wisdom === 0 ? "" : "+"}{abilityScore.wisdom}
+                                    </div>
                                 </div>
                                 <div>
                                     <select id="gameStyle" onClick={(e) => { setGameStyle((e.target as HTMLSelectElement).value) }}>

@@ -60,7 +60,7 @@ export const storeUser = mutation({
       sex: args.sex,
       money: 50,
       raceSelect: args.raceSelect,
-      strengthBonus: args.charismaBonus,
+      strengthBonus: args.strengthBonus,
       dexterityBonus: args.dexterityBonus,
       constitutionBonus: args.constitutionBonus,
       intelligenceBonus: args.intelligenceBonus,
