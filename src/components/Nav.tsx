@@ -97,7 +97,6 @@ export default function Nav() {
       const iconRect = menuIcon775?.getBoundingClientRect();
       const iconleft = iconRect?.right! + window.scrollX - 140;
       const newTop = iconRect?.bottom! + window.scrollY + 18;
-      console.log('screenY', newTop, 'screenX', iconleft, 'windowWidth', windowWidth);
       setMenuTopLeft({ screenY: newTop, screenX: iconleft });
     }
 

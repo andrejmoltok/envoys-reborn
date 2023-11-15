@@ -19,6 +19,13 @@ export const storeUser = mutation({
     serial: v.string(),
     raceSelect: v.string(),
     gameStyle: v.string(),
+    agreed: v.boolean(),
+    charismaBonus: v.number(),
+    constitutionBonus: v.number(),
+    dexterityBonus: v.number(),
+    intelligenceBonus: v.number(),
+    strengthBonus: v.number(),
+    wisdomBonus: v.number(),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -45,19 +52,20 @@ export const storeUser = mutation({
       nickname: identity.nickname!,
       email_verified: identity.emailVerified!,
       updated_at: identity.updatedAt!,
+      agreed: args.agreed,
       role: "User",
       serial: args.serial,
       level: 1,
       rank: "beginner",
       sex: args.sex,
-      money: 100,
+      money: 50,
       raceSelect: args.raceSelect,
-      strengthBonus: 0,
-      dexterityBonus: 0,
-      constitutionBonus: 0,
-      intelligenceBonus: 0,
-      wisdomBonus: 0,
-      charismaBonus: 0,
+      strengthBonus: args.charismaBonus,
+      dexterityBonus: args.dexterityBonus,
+      constitutionBonus: args.constitutionBonus,
+      intelligenceBonus: args.intelligenceBonus,
+      wisdomBonus: args.wisdomBonus,
+      charismaBonus: args.charismaBonus,
       languages: "",
       outerDescription: "",
       innerDescription: "",
@@ -83,14 +91,14 @@ export const readAllUsers = query({
 
 export const readLoggedInId = query({
   args: {},
-  handler: async (ctx) => {
+  handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) {
-      throw new Error("Called readLoggedIn without authentication present");
+      throw new Error("Called readLoggedInId without authentication present");
     }
 
     const user = await ctx.db.query("users")
-      .filter(q => q.eq(q.field("tokenIdentifier"), identity.tokenIdentifier))
+      .filter(q => q.eq(q.field("tokenIdentifier"), identity.tokenIdentifier!))
       .unique();
 
     if (user !== null) {
@@ -100,9 +108,12 @@ export const readLoggedInId = query({
 });
 
 export const readUserById = query({
-  args: { userId: v.id("users") },
+  args: {},
   handler: async (ctx, args) => {
-    return await ctx.db.get(args.userId)
+    const id = await readLoggedInId(ctx, args);
+    return await ctx.db.query("users")
+      .filter(q => q.eq(q.field("_id"), id))
+      .unique();
   }
 });
 

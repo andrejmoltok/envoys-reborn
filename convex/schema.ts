@@ -24,6 +24,9 @@ export default defineSchema({
         updated_at: v.string(),
 
         /* Player specific data */
+        //rules agreed check
+        agreed: v.boolean(),
+
         //user role set at registration
         role: v.string(),
 

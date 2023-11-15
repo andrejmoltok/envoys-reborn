@@ -1,37 +1,68 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
 import style from '@/styles/Layout.module.css';
 import fill from '@/styles/Fill.module.css';
 import styles from '@/styles/Character.module.css';
 
 import { useUser } from "@clerk/nextjs";
+import { useConvexAuth } from 'convex/react';
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+
+interface AbilityScore {
+    charisma: number;
+    constitution: number;
+    dexterity: number;
+    intelligence: number;
+    strength: number;
+    wisdom: number;
+}
 
 export default function Page() {
 
     const { user, isLoaded, isSignedIn } = useUser();
+    const { isAuthenticated } = useConvexAuth();
+
+    const router = useRouter();
 
     const [serial, setSerial] = useState<string>("");
     const [sex, setSex] = useState<string>("male");
     const [raceSelect, setRaceSelect] = useState<string>("human");
     const [gameStyle, setGameStyle] = useState<string>("lightcore");
+    const [abilityScore, setAbilityScore] = useState<AbilityScore>({
+        charisma: 0,
+        constitution: 0,
+        dexterity: 0,
+        intelligence: 0,
+        strength: 0,
+        wisdom: 0
+    });
 
     const serializer = useQuery(api.users.addSerial) as string;
     const storeUser = useMutation(api.users.storeUser);
 
     useEffect(() => {
-        if (isLoaded && isSignedIn) {
+        if (isLoaded && isSignedIn && isAuthenticated) {
             setSerial(serializer);
         }
-    }, [serializer, isLoaded, isSignedIn]);
+
+    }, [serializer, isLoaded, isSignedIn, isAuthenticated]);
 
     const storeUserObject = {
         sex: sex,
         serial: serial,
         raceSelect: raceSelect,
-        gameStyle: gameStyle
+        gameStyle: gameStyle,
+        agreed: true,
+        charismaBonus: abilityScore.charisma,
+        constitutionBonus: abilityScore.constitution,
+        dexterityBonus: abilityScore.dexterity,
+        intelligenceBonus: abilityScore.intelligence,
+        strengthBonus: abilityScore.strength,
+        wisdomBonus: abilityScore.wisdom,
     };
 
     return (
@@ -39,6 +70,7 @@ export default function Page() {
             <div className={style.border}>
                 <div className={fill.fill}>
                     <div className={styles.setup}>
+
                         <div className={styles.intro}>
                             <div>
                                 This is the setup process for your in-game character.
@@ -46,29 +78,24 @@ export default function Page() {
                             </div>
                         </div>
                         <div className={styles.fields}>
-                            <div id={styles.unique}>
+
+                            <div className={styles.key}>
                                 <div><label htmlFor="fullname">Character Name:</label></div>
-                                <div id="fullname">{user?.fullName}</div>
-                            </div>
-
-                            <div id={styles.unique}>
-                                <div><label htmlFor="emailaddress">Registered Email Address:</label></div>
-                                <div id="emailaddress">{user?.primaryEmailAddress!.emailAddress}</div>
-                            </div>
-
-                            <div id={styles.unique}>
+                                <div><label htmlFor="emailaddress">Email Address:</label></div>
                                 <div><label htmlFor="sex">Sex:</label></div>
+                                <div><label htmlFor="race">Race select:</label></div>
+                                <div><label htmlFor="gameStyle">Game style:</label></div>
+                            </div>
+
+                            <div className={styles.value}>
+                                <div id="fullname">{user?.fullName}</div>
+                                <div id="emailaddress">{user?.primaryEmailAddress!.emailAddress}</div>
                                 <div>
                                     <select id="sex" onClick={(e) => { setSex((e.target as HTMLSelectElement).value) }}>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
-                                        {/* <option value="nb">Non-binary</option> */}
                                     </select>
                                 </div>
-                            </div>
-
-                            <div id={styles.unique}>
-                                <div><label htmlFor="race">Race select:</label></div>
                                 <div>
                                     <select id="race" onClick={(e) => { setRaceSelect((e.target as HTMLSelectElement).value) }}>
                                         <option value="human">Human</option>
@@ -80,10 +107,6 @@ export default function Page() {
                                         <option value="darkelf">Dark Elf</option>
                                     </select>
                                 </div>
-                            </div>
-
-                            <div id={styles.unique}>
-                                <div><label htmlFor="gameStyle">Game style:</label></div>
                                 <div>
                                     <select id="gameStyle" onClick={(e) => { setGameStyle((e.target as HTMLSelectElement).value) }}>
                                         <option value="lightcore">Lightcore</option>
@@ -93,10 +116,11 @@ export default function Page() {
                                 </div>
                             </div>
 
-                            <div id={styles.unique}>
-                                <button onClick={() => { storeUser(storeUserObject) }}>Save</button>
-                            </div>
                         </div>
+                        <div id={styles.unique}>
+                            <button onClick={() => { storeUser(storeUserObject), router.push("/forums_ic") }}>Save</button>
+                        </div>
+
                     </div>
                 </div>
             </div>
