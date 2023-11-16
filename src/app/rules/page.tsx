@@ -10,7 +10,7 @@ import { useUser } from '@clerk/nextjs';
 import { useQuery, useConvexAuth } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 
-export function Rulebook() {
+function Rulebook() {
 
     const { isSignedIn, isLoaded } = useUser();
 
