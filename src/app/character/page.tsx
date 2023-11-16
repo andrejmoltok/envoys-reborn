@@ -88,7 +88,7 @@ export default function Page() {
     };
 
     return (
-        <>
+        <>{(isSignedIn) && 
             <div className={style.border}>
                 <div className={fill.fill}>
                     <div className={styles.setup}>
@@ -107,11 +107,11 @@ export default function Page() {
                                 <div><label htmlFor="sex">Sex:</label></div>
                                 <div><label htmlFor="race">Race select:</label></div>
                                 <div><label htmlFor="charisma">Charisma:</label></div>
-                                <div><label htmlFor="charisma">Constitution:</label></div>
-                                <div><label htmlFor="charisma">Dexterity:</label></div>
-                                <div><label htmlFor="charisma">Intelligence:</label></div>
-                                <div><label htmlFor="charisma">Strength:</label></div>
-                                <div><label htmlFor="charisma">Wisdom:</label></div>
+                                <div><label htmlFor="constitution">Constitution:</label></div>
+                                <div><label htmlFor="dexterity">Dexterity:</label></div>
+                                <div><label htmlFor="intelligence">Intelligence:</label></div>
+                                <div><label htmlFor="strength">Strength:</label></div>
+                                <div><label htmlFor="wisdom">Wisdom:</label></div>
                                 <div><label htmlFor="gameStyle">Game style:</label></div>
                             </div>
 
@@ -136,22 +136,22 @@ export default function Page() {
                                     </select>
                                 </div>
                                 <div>
-                                    <div>
+                                    <div id="charisma">
                                         {abilityScore.charisma === 0 ? "" : "+"}{abilityScore.charisma}
                                     </div>
-                                    <div>
+                                    <div id="constitution">
                                         {abilityScore.constitution === 0 ? "" : "+"}{abilityScore.constitution}
                                     </div>
-                                    <div>
+                                    <div id="dexterity">
                                         {abilityScore.dexterity === 0 ? "" : "+"}{abilityScore.dexterity}
                                     </div>
-                                    <div>
+                                    <div id="intelligence">
                                         {abilityScore.intelligence === 0 ? "" : "+"}{abilityScore.intelligence}
                                     </div>
-                                    <div>
+                                    <div id="strength">
                                         {abilityScore.strength === 0 ? "" : "+"}{abilityScore.strength}
                                     </div>
-                                    <div>
+                                    <div id="wisdom">
                                         {abilityScore.wisdom === 0 ? "" : "+"}{abilityScore.wisdom}
                                     </div>
                                 </div>
@@ -171,7 +171,7 @@ export default function Page() {
 
                     </div>
                 </div>
-            </div>
+            </div>}
         </>
     )
 }
