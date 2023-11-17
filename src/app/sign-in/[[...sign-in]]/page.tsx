@@ -37,7 +37,7 @@ export default function Page({ }) {
       <div className={styles.border}>
         <div className={fill.fill}>
           <div className={style.signin}>
-            <SignIn />
+            <SignIn path="/sign-in" routing="path" />
           </div>
         </div>
       </div>

@@ -1,8 +1,9 @@
 "use client"
 
 import React, { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { UserButton, useAuth } from '@clerk/nextjs';
+import { useAuth, useClerk } from '@clerk/nextjs';
 import styles from '@/styles/Nav.module.css'; // general styling
 import style from '@/styles/Layout.module.css'; // for dropdown menu border
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,7 +15,9 @@ import {
   faUserPlus,
   faPersonCirclePlus,
   faPersonCircleMinus,
-  faMonument
+  faMonument,
+  faUser,
+  faArrowRightFromBracket
 } from '@fortawesome/free-solid-svg-icons';
 import { useConvexAuth } from 'convex/react';
 // import Profile from '@/components/Profile';
@@ -24,6 +27,8 @@ export default function Nav() {
   // Clerk authentication check
   const { isLoaded } = useAuth();
   const { isAuthenticated } = useConvexAuth();
+  const { signOut } = useClerk();
+  const router = useRouter();
 
   // state for dropdown menu toggle
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -67,7 +72,6 @@ export default function Nav() {
 
     // existence check
     if (!(menuIcon1150 || menuIcon775)) {
-      console.log('no menuIcon')
       return;
     }
 
@@ -88,7 +92,6 @@ export default function Nav() {
       const iconRect = menuIcon1150?.getBoundingClientRect();
       const iconleft = iconRect?.right! + window.scrollX - 140;
       const newTop = iconRect?.bottom! + window.scrollY + 18;
-      console.log('screenY', newTop, 'screenX', iconleft, 'windowWidth', windowWidth);
       setMenuTopLeft({ screenY: newTop, screenX: iconleft });
     }
 
@@ -158,9 +161,14 @@ export default function Nav() {
         <div className={styles.navitem}>
           <Link className={styles.link} href="/forums_ooc"><FontAwesomeIcon icon={faPersonCircleMinus} style={{ color: "#252c36", }} /> OOC</Link>
         </div>
-        {(isLoaded && isAuthenticated) && <div className={styles.userbutton}>
-          <UserButton afterSignOutUrl='/' />
-        </div>}
+        {(isLoaded && isAuthenticated) && <>
+          <div className={styles.navitem}>
+            <FontAwesomeIcon icon={faUser} style={{ color: "#252c36", }} /> Profile
+          </div>
+          <div className={styles.navitem} onClick={() => signOut(() => router.push('/'))}>
+            <FontAwesomeIcon icon={faArrowRightFromBracket} style={{ color: "#252c36", }} /> Log out
+          </div>
+        </>}
         {!isAuthenticated && <>
           <div className={styles.navitem}>
             <Link className={styles.link} href="/sign-in"><FontAwesomeIcon icon={faArrowRightToBracket} style={{ color: "#252c36", }} /> Sign In</Link>
@@ -208,8 +216,14 @@ export default function Nav() {
               <div className={styles.navitem}>
                 <Link className={styles.link} onClick={() => setIsOpen(false)} href="/forums_ooc"><FontAwesomeIcon icon={faPersonCircleMinus} style={{ color: "#252c36", }} /> OOC</Link>
               </div>
-              {(isLoaded && isAuthenticated) && <div className={styles.userbutton}>
-                <UserButton afterSignOutUrl='/' /></div>}
+              {(isLoaded && isAuthenticated) && <>
+                <div className={styles.navitem}>
+                  <FontAwesomeIcon icon={faUser} style={{ color: "#252c36", }} /> Profile
+                </div>
+                <div className={styles.navitem} onClick={() => signOut(() => router.push('/'))}>
+                  <FontAwesomeIcon icon={faArrowRightFromBracket} style={{ color: "#252c36", }} /> Log out
+                </div>
+              </>}
               {!isAuthenticated && <>
                 <div className={styles.navitem}>
                   <Link className={styles.link} href="/sign-in" onClick={() => setIsOpen(false)}><FontAwesomeIcon icon={faArrowRightToBracket} style={{ color: "#252c36", }} /> Sign In</Link>
@@ -239,8 +253,14 @@ export default function Nav() {
               <div className={styles.navitem}>
                 <Link className={styles.link} onClick={() => setIsOpen(false)} href="/forums_ooc"><FontAwesomeIcon icon={faPersonCircleMinus} style={{ color: "#252c36", }} /> OOC</Link>
               </div>
-              {(isLoaded && isAuthenticated) && <div className={styles.userbutton}>
-                <UserButton afterSignOutUrl='/' /></div>}
+              {(isLoaded && isAuthenticated) && <>
+                <div className={styles.navitem}>
+                  <FontAwesomeIcon icon={faUser} style={{ color: "#252c36", }} /> Profile
+                </div>
+                <div className={styles.navitem} onClick={() => signOut(() => router.push('/'))}>
+                  <FontAwesomeIcon icon={faArrowRightFromBracket} style={{ color: "#252c36", }} /> Log out
+                </div>
+              </>}
               {!isAuthenticated && <>
                 <div className={styles.navitem}>
                   <Link className={styles.link} href="/sign-in" onClick={() => setIsOpen(false)}><FontAwesomeIcon icon={faArrowRightToBracket} style={{ color: "#252c36", }} /> Sign In</Link>

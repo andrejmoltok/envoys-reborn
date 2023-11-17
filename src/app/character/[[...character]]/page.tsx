@@ -28,7 +28,7 @@ export default function Page() {
 
     const router = useRouter();
 
-    const [serial, setSerial] = useState<string>("");
+    const [serial, setSerial] = useState<number>(0);
     const [sex, setSex] = useState<string>("male");
     const [raceSelect, setRaceSelect] = useState<string>("human");
     const [gameStyle, setGameStyle] = useState<string>("lightcore");
@@ -41,7 +41,7 @@ export default function Page() {
         wisdom: 1
     });
 
-    const serializer = useQuery(api.users.addSerial) as string;
+    const serializer = useQuery(api.users.addSerial) as number;
     const storeUser = useMutation(api.users.storeUser);
 
     useEffect(() => {
@@ -88,7 +88,7 @@ export default function Page() {
     };
 
     return (
-        <>{(isSignedIn) && 
+        <>{(isSignedIn) &&
             <div className={style.border}>
                 <div className={fill.fill}>
                     <div className={styles.setup}>

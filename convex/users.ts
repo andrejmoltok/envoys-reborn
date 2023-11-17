@@ -16,7 +16,7 @@ import { v } from "convex/values";
 export const storeUser = mutation({
   args: {
     sex: v.string(),
-    serial: v.string(),
+    serial: v.number(),
     raceSelect: v.string(),
     gameStyle: v.string(),
     agreed: v.boolean(),
@@ -117,10 +117,18 @@ export const readUserById = query({
   }
 });
 
+export const readLastUserSerial = query({
+  args: {},
+  handler: async (ctx, args) => {
+    const lastUser = await ctx.db.query("users").order("desc").first();
+    return lastUser?.serial || 0;
+  },
+});
+
 export const addSerial = query({
   args: {},
   handler: async (ctx, args) => {
-    const userCount = await readAllUsers(ctx, args);
-    return ('#' + (userCount.length + 1)).toString();
+    const lastUserSerial = await readLastUserSerial(ctx, args);
+    return (lastUserSerial + 1);
   },
 });

@@ -30,8 +30,8 @@ export default defineSchema({
         //user role set at registration
         role: v.string(),
 
-        //serial number with hash of player, e.g #10911
-        serial: v.string(),
+        //serial number
+        serial: v.number(),
 
         //starting character level
         level: v.number(),
@@ -100,6 +100,9 @@ export default defineSchema({
 
         //backpack slots multiplied by character level
         backpackSlots: v.number(),
+
+        // `deleted` flag if the user was deleted from Clerk
+        deleted: v.optional(v.boolean()),
 
         //unique token
         tokenIdentifier: v.string(),
