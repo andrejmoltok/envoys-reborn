@@ -7,11 +7,6 @@ import style from '@/styles/Layout.module.css';
 import fill from '@/styles/Fill.module.css';
 import styles from '@/styles/Character.module.css';
 
-import { useUser } from "@clerk/nextjs";
-import { useConvexAuth } from 'convex/react';
-import { useMutation, useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
-
 interface AbilityScore {
     charisma: number;
     constitution: number;
@@ -22,9 +17,6 @@ interface AbilityScore {
 }
 
 export default function Page() {
-
-    const { user, isLoaded, isSignedIn } = useUser();
-    const { isAuthenticated } = useConvexAuth();
 
     const router = useRouter();
 
@@ -40,16 +32,6 @@ export default function Page() {
         strength: 1,
         wisdom: 1
     });
-
-    const serializer = useQuery(api.users.addSerial) as number;
-    const storeUser = useMutation(api.users.storeUser);
-
-    useEffect(() => {
-        if (isLoaded && isSignedIn && isAuthenticated) {
-            setSerial(serializer);
-        }
-
-    }, [serializer, isLoaded, isSignedIn, isAuthenticated]);
 
     const storeUserObject = {
         sex: sex,
@@ -88,7 +70,8 @@ export default function Page() {
     };
 
     return (
-        <>{(isSignedIn) &&
+        <>
+            {/* {(isSignedIn) &&
             <div className={style.border}>
                 <div className={fill.fill}>
                     <div className={styles.setup}>
@@ -166,12 +149,12 @@ export default function Page() {
 
                         </div>
                         <div id={styles.unique}>
-                            <button onClick={() => { storeUser(storeUserObject), router.push("/forums_ic") }}>Save</button>
+                            <button onClick={() => { router.push("/forums_ic") }}>Save</button>
                         </div>
 
                     </div>
                 </div>
-            </div>}
+            </div>} */}
         </>
     )
 }

@@ -161,22 +161,22 @@ export default function Nav() {
         <div className={styles.navitem}>
           <Link className={styles.link} href="/forums_ooc"><FontAwesomeIcon icon={faPersonCircleMinus} style={{ color: "#252c36", }} /> OOC</Link>
         </div>
-        {(isLoaded && isAuthenticated) && <>
+        {/* {(isLoaded && isAuthenticated) && <>
           <div className={styles.navitem}>
             <FontAwesomeIcon icon={faUser} style={{ color: "#252c36", }} /> Profile
           </div>
           <div className={styles.navitem} onClick={() => signOut(() => router.push('/'))}>
             <FontAwesomeIcon icon={faArrowRightFromBracket} style={{ color: "#252c36", }} /> Log out
           </div>
-        </>}
-        {!isAuthenticated && <>
+        </>} */}
+        {/* {!isAuthenticated && <>
           <div className={styles.navitem}>
             <Link className={styles.link} href="/sign-in"><FontAwesomeIcon icon={faArrowRightToBracket} style={{ color: "#252c36", }} /> Sign In</Link>
           </div>
           <div className={styles.navitem}>
             <Link className={styles.link} href="/sign-up"><FontAwesomeIcon icon={faUserPlus} style={{ color: "#252c36", }} /> Sign Up</Link>
           </div>
-        </>}
+        </>} */}
       </div>}
 
       {/* Shrunken menu @ < 1150px  */}
@@ -216,22 +216,22 @@ export default function Nav() {
               <div className={styles.navitem}>
                 <Link className={styles.link} onClick={() => setIsOpen(false)} href="/forums_ooc"><FontAwesomeIcon icon={faPersonCircleMinus} style={{ color: "#252c36", }} /> OOC</Link>
               </div>
-              {(isLoaded && isAuthenticated) && <>
+              {/* {(isLoaded && isAuthenticated) && <>
                 <div className={styles.navitem}>
                   <FontAwesomeIcon icon={faUser} style={{ color: "#252c36", }} /> Profile
                 </div>
                 <div className={styles.navitem} onClick={() => signOut(() => router.push('/'))}>
                   <FontAwesomeIcon icon={faArrowRightFromBracket} style={{ color: "#252c36", }} /> Log out
                 </div>
-              </>}
-              {!isAuthenticated && <>
+              </>} */}
+              {/* {!isAuthenticated && <>
                 <div className={styles.navitem}>
                   <Link className={styles.link} href="/sign-in" onClick={() => setIsOpen(false)}><FontAwesomeIcon icon={faArrowRightToBracket} style={{ color: "#252c36", }} /> Sign In</Link>
                 </div>
                 <div className={styles.navitem}>
                   <Link className={styles.link} href="/sign-up" onClick={() => setIsOpen(false)}><FontAwesomeIcon icon={faUserPlus} style={{ color: "#252c36", }} /> Sign Up</Link>
                 </div>
-              </>}
+              </>} */}
             </div>
           </div>
         </div>}
@@ -253,22 +253,22 @@ export default function Nav() {
               <div className={styles.navitem}>
                 <Link className={styles.link} onClick={() => setIsOpen(false)} href="/forums_ooc"><FontAwesomeIcon icon={faPersonCircleMinus} style={{ color: "#252c36", }} /> OOC</Link>
               </div>
-              {(isLoaded && isAuthenticated) && <>
+              {/* {(isLoaded && isAuthenticated) && <>
                 <div className={styles.navitem}>
                   <FontAwesomeIcon icon={faUser} style={{ color: "#252c36", }} /> Profile
                 </div>
                 <div className={styles.navitem} onClick={() => signOut(() => router.push('/'))}>
                   <FontAwesomeIcon icon={faArrowRightFromBracket} style={{ color: "#252c36", }} /> Log out
                 </div>
-              </>}
-              {!isAuthenticated && <>
+              </>} */}
+              {/* {!isAuthenticated && <>
                 <div className={styles.navitem}>
                   <Link className={styles.link} href="/sign-in" onClick={() => setIsOpen(false)}><FontAwesomeIcon icon={faArrowRightToBracket} style={{ color: "#252c36", }} /> Sign In</Link>
                 </div>
                 <div className={styles.navitem}>
                   <Link className={styles.link} href="/sign-up" onClick={() => setIsOpen(false)}><FontAwesomeIcon icon={faUserPlus} style={{ color: "#252c36", }} /> Sign Up</Link>
                 </div>
-              </>}
+              </>} */}
             </div>
           </div>
         </div>}
