@@ -1,0 +1,68 @@
+/** @format */
+
+.setup {
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.intro {
+  margin: 0;
+  width: inherit;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1.35rem;
+}
+
+.fields {
+  margin: 10px auto;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 25px;
+}
+
+.key {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  font-size: 1.125rem;
+}
+
+.value {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: 1.125rem;
+}
+
+#unique {
+  margin: 5px auto;
+  min-width: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  overflow: auto;
+}
+
+/*#unique > div > label {
+  margin: 5px auto;
+  width: 450px;
+  font-size: 1.115rem;
+}
+
+#unique > div > label {
+  text-decoration: underline;
+}
+
+#unique > div > select {
+  margin: auto;
+  width: 80px;
+} */
