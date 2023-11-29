@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useAuth, useClerk } from '@clerk/nextjs';
 import styles from '@/styles/Nav.module.css'; // general styling
 import style from '@/styles/Layout.module.css'; // for dropdown menu border
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,15 +18,12 @@ import {
   faUser,
   faArrowRightFromBracket
 } from '@fortawesome/free-solid-svg-icons';
-import { useConvexAuth } from 'convex/react';
 // import Profile from '@/components/Profile';
 
 export default function Nav() {
 
   // Clerk authentication check
-  const { isLoaded } = useAuth();
-  const { isAuthenticated } = useConvexAuth();
-  const { signOut } = useClerk();
+  
   const router = useRouter();
 
   // state for dropdown menu toggle
