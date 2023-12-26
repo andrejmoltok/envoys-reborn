@@ -52,7 +52,7 @@
   overflow: auto;
 }
 
-/*#unique > div > label {
+#unique > div > label {
   margin: 5px auto;
   width: 450px;
   font-size: 1.115rem;
@@ -65,4 +65,4 @@
 #unique > div > select {
   margin: auto;
   width: 80px;
-} */
+}

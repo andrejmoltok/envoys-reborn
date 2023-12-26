@@ -57,6 +57,8 @@ export default function Page() {
                 return setAbilityScore({ charisma: 0, intelligence: 0, wisdom: 0, constitution: 2, strength: 2, dexterity: 0 });
             case 'orc':
                 return setAbilityScore({ charisma: 0, intelligence: 0, wisdom: 0, constitution: 1, strength: 2, dexterity: 0 });
+            case 'giant':
+                return setAbilityScore({ charisma: 0, intelligence: 0, wisdom: 0, constitution: 3, strength: 2, dexterity: 0 });
             case 'devil':
                 return setAbilityScore({ charisma: 2, intelligence: 1, wisdom: 0, constitution: 0, strength: 0, dexterity: 0 });
             case 'gnome':
@@ -71,7 +73,7 @@ export default function Page() {
 
     return (
         <>
-            {/* {(isSignedIn) &&
+            {
             <div className={style.border}>
                 <div className={fill.fill}>
                     <div className={styles.setup}>
@@ -99,8 +101,8 @@ export default function Page() {
                             </div>
 
                             <div className={styles.value}>
-                                <div id="fullname">{user?.fullName}</div>
-                                <div id="emailaddress">{user?.primaryEmailAddress!.emailAddress}</div>
+                                <div id="fullname">characterName</div>
+                                <div id="emailaddress">emailaddress</div>
                                 <div>
                                     <select id="sex" onClick={(e) => { setSex((e.target as HTMLSelectElement).value) }}>
                                         <option value="male">Male</option>
@@ -113,6 +115,7 @@ export default function Page() {
                                         <option value="elf">Elf</option>
                                         <option value="dwarf">Dwarf</option>
                                         <option value="orc">Orc</option>
+                                        <option value="giant">Giant</option>
                                         <option value="devil">Devil</option>
                                         <option value="gnome">Gnome</option>
                                         <option value="darkelf">Dark Elf</option>
@@ -154,7 +157,7 @@ export default function Page() {
 
                     </div>
                 </div>
-            </div>} */}
+            </div>}
         </>
     )
 }

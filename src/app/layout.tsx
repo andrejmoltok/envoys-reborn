@@ -1,7 +1,15 @@
+/**
+ * @Metadata - used to replace the <head> tag used in pages router
+ * @globals @styles @fill - used to style the whole application
+ * @localFont - used to add an app-wide font
+ * @Nav @Pole @Footer - components used to render the app-wide layout
+ */
+
 import type { Metadata } from 'next';
-import './globals.css';
+
 import React from 'react';
 
+import './globals.css';
 import styles from '@/styles/Layout.module.css';
 import fill from '@/styles/Fill.module.css';
 
@@ -13,8 +21,11 @@ import Footer from '@/components/Footer';
 
 
 export const metadata: Metadata = {
-  title: "Envoys Reborn - Forum-based role-playing fantasy game",
-  description: "Medieval style role-playing fantasy game",
+  title: "Küldöttek: Újjászületés",
+  description: "Középkori stílusú mágikus fantázia szerepjáték",
+  icons: {
+    icon: '/newland.jpg',
+  }
 };
 
 const medievalSharp = localFont({
@@ -35,8 +46,8 @@ export default function RootLayout({
             <div className={styles.border}>
               <div className={styles.newland}>
                 <div className={styles.blur}>
-                  <div className={styles.title}>Envoys Reborn</div>
-                  <div className={styles.subtitle}>The New Land</div>
+                  <div className={styles.title}>Küldöttek</div>
+                  <div className={styles.subtitle}>Újjászületés</div>
                 </div>
               </div>
             </div>
