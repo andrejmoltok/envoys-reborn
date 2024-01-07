@@ -1,0 +1,160 @@
+{
+  "main": {
+    "id": "31578cd80cdbafcf",
+    "type": "split",
+    "children": [
+      {
+        "id": "c115912505b63e0a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2380b7c187df0cff",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "WorldBuilding/WorldBuilding/Worldbuilding.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "8476430a279549ed",
+    "type": "split",
+    "children": [
+      {
+        "id": "0c34a1bfe4150245",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "47dd403a758ec46a",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "5d9b5b10c3d24ebf",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "aedeabf97f8dd1f1",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "1c8dd9b5693a168e",
+    "type": "split",
+    "children": [
+      {
+        "id": "c715e72d8f943e9f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4130866bbfedc985",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "WorldBuilding/WorldBuilding/Worldbuilding.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "d00794596a5e25a0",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "WorldBuilding/WorldBuilding/Worldbuilding.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "069ba412603581aa",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "6d84f525576b2050",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "WorldBuilding/WorldBuilding/Worldbuilding.md"
+              }
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Gyors váltó megnyitása": false,
+      "graph:Grafikon nézet megnyitása": false,
+      "canvas:Új vászon létrehozása": false,
+      "daily-notes:Mai jegyzet megnyitása": false,
+      "templates:Sablon beszúrása": false,
+      "command-palette:Parancspaletta megnyitása": false
+    }
+  },
+  "active": "47dd403a758ec46a",
+  "lastOpenFiles": [
+    "WorldBuilding/WorldBuilding",
+    "WorldBuilding/1. Main Theme & Concept.md",
+    "WorldBuilding/WorldBuilding/Worldbuilding.md",
+    "WorldBuilding/2. Map with Azgaar's.md",
+    "2023-12-24.md",
+    "WorldBuilding/Névtelen.canvas",
+    "WorldBuilding"
+  ]
+}

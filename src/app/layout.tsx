@@ -19,7 +19,6 @@ import Nav from '@/components/Nav';
 import Pole from '@/components/Pole';
 import Footer from '@/components/Footer';
 
-
 export const metadata: Metadata = {
   title: "Küldöttek: Újjászületés",
   description: "Középkori stílusú mágikus fantázia szerepjáték",

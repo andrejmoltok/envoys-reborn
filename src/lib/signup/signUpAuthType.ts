@@ -9,5 +9,6 @@
 export type signUpAuthType = {
     username: string,
     email: string,
-    password: string
+    password: string,
+    confirm: string
 }

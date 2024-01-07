@@ -1,11 +1,10 @@
 'use server'
 
 import { db } from "@/firebase/config";
-import { Timestamp, collection, doc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc } from 'firebase/firestore';
 import { nanoid } from "nanoid";
 
-const emailVerifyRef = collection(db, "emailVerify");
-const usersCollRef = collection(db, 'users');
+const resetPasswordRef = collection(db, "resetPassword");
 
 var nodemailer = require("nodemailer");
 
@@ -30,13 +29,13 @@ export async function sendMail(toEmail:string, username: string, code: string) {
         <meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
       </head>
       <body>
-        <div style="margin:15px; width:100%; height:100%; background-color:#252c36;">
+        <div style="width:100%; height:100%; background-color:#252c36;">
             <img src="cid:bgnewland" alt="zoomed in photo of large grass with trees and sun in the background" width='100%' height='360px' style="object-fit:cover"/>
             <div style="margin:15px; font-size:30px; color:darkgoldenrod; text-align:center;">
                 'Küldöttek: Újjászületés' FRPG
             <div>
             <div style="margin:15px; text-align:center">
-                <a href='http://localhost:3000/auth/action?mode=verifyEmail&user=${username}&actionCode=${code}' style="color:white; font-size:30px; text-align:center; text-decoration:none;">
+                <a href='http://localhost:3000/auth/action?mode=resetPassword&user=${username}&actionCode=${code}' style="color:white; font-size:30px; text-align:center; text-decoration:none;">
                     Az ellenőrző kódod
                 </a>
             </div>
@@ -65,23 +64,15 @@ export async function sendMail(toEmail:string, username: string, code: string) {
   });
 }
 
-export default async function SendEmailVerification(username: string, email: string) {
+export default async function ResetPassword(username: string, email: string) {
     
     const actionCode = nanoid();
 
     sendMail(email,username,actionCode)
 
-    await setDoc(doc(emailVerifyRef, username), {
+    await setDoc(doc(resetPasswordRef, username), {
       code: actionCode,
       email: email,
-      used: false,
-      valid: true
-    });
-
-    await setDoc(doc(usersCollRef, username), {
-      username: username,
-      email: email,
-      emailVerified: false,
-      registeredAt: Timestamp.now()
-    });
+      used: false
+    })
 }
