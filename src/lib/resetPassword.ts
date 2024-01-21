@@ -1,10 +1,7 @@
 'use server'
 
-import { db } from "@/firebase/config";
-import { collection, doc, setDoc } from 'firebase/firestore';
 import { nanoid } from "nanoid";
 
-const resetPasswordRef = collection(db, "resetPassword");
 
 var nodemailer = require("nodemailer");
 
@@ -68,11 +65,6 @@ export default async function ResetPassword(username: string, email: string) {
     
     const actionCode = nanoid();
 
-    sendMail(email,username,actionCode)
-
-    await setDoc(doc(resetPasswordRef, username), {
-      code: actionCode,
-      email: email,
-      used: false
-    })
+    sendMail(email,username,actionCode);
+    
 }

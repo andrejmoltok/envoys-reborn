@@ -1,0 +1,154 @@
+{
+  "main": {
+    "id": "0b9678fe5ec90337",
+    "type": "split",
+    "children": [
+      {
+        "id": "1e7cad9904228c85",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "19a8e6c86ddebf00",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "WorldBuilding/Worldbuilding.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "f69b10436954b557",
+    "type": "split",
+    "children": [
+      {
+        "id": "9f061ab5582f9cc1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "54c7968d20dcceb7",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "bef7cb7f4d7dcfa6",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "68d0f7c2c4bd0fd6",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "1be71b77658ad511",
+    "type": "split",
+    "children": [
+      {
+        "id": "f7d7be2b54ee4261",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "fee0140423985f0e",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "WorldBuilding/Worldbuilding.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "cdc1cb2c9b5c6a51",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "WorldBuilding/Worldbuilding.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "ebff2c15bd41ccb5",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "1f485ac95cb364b5",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "WorldBuilding/Worldbuilding.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Gyors váltó megnyitása": false,
+      "graph:Grafikon nézet megnyitása": false,
+      "canvas:Új vászon létrehozása": false,
+      "daily-notes:Mai jegyzet megnyitása": false,
+      "templates:Sablon beszúrása": false,
+      "command-palette:Parancspaletta megnyitása": false
+    }
+  },
+  "active": "19a8e6c86ddebf00",
+  "lastOpenFiles": [
+    "1. Main Theme & Concept.md",
+    "WorldBuilding/Worldbuilding.md"
+  ]
+}

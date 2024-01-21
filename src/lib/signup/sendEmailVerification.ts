@@ -1,11 +1,6 @@
 'use server'
-
-import { db } from "@/firebase/config";
-import { Timestamp, collection, doc, setDoc } from 'firebase/firestore';
 import { nanoid } from "nanoid";
 
-const emailVerifyRef = collection(db, "emailVerify");
-const usersCollRef = collection(db, 'users');
 
 var nodemailer = require("nodemailer");
 
@@ -69,19 +64,6 @@ export default async function SendEmailVerification(username: string, email: str
     
     const actionCode = nanoid();
 
-    sendMail(email,username,actionCode)
-
-    await setDoc(doc(emailVerifyRef, username), {
-      code: actionCode,
-      email: email,
-      used: false,
-      valid: true
-    });
-
-    await setDoc(doc(usersCollRef, username), {
-      username: username,
-      email: email,
-      emailVerified: false,
-      registeredAt: Timestamp.now()
-    });
+    sendMail(email,username,actionCode);
+    
 }

@@ -5,6 +5,8 @@
  * @Nav @Pole @Footer - components used to render the app-wide layout
  */
 
+import mongoose from 'mongoose';
+
 import type { Metadata } from 'next';
 
 import React from 'react';
@@ -31,6 +33,9 @@ const medievalSharp = localFont({
   src: './font/MedievalSharp-Regular.ttf',
   display: 'swap',
 });
+
+//TODO register at MongoDB for Envoys Reborn
+mongoose.connect('mongodb+srv://csokanpalandras:Gu4Rdi4n4n23l487@cluster0.ys5hvrr.mongodb.net/er?retryWrites=true&w=majority');
 
 export default function RootLayout({
   children,
