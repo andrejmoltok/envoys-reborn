@@ -1,18 +1,17 @@
 /**
- * @SignUp - signup process function
  * @styles - general styling specific for the signup page
  * @fill & @style - styling specific app-wide
  * 
  * @signUpAuthType - specific for the signup process, contains username, email, password as string
  * @signUpZodSchema - signup process input validation
  * @InputChangeEvent - select between <input> or <select> element change event
- * @auth - Firebase Authentication instance used by react-firebase-hooks
- * @SendEmailverification - sends an email with the email verification code to the registered user
  */
 
 'use client'
 
 import React from 'react';
+
+import userCreateDB from './userCreateDB';
 
 import styles from '@/styles/Sign.module.css';
 import filling from '@/styles/Fill.module.css';
@@ -24,7 +23,6 @@ import { ValidationError } from '@/lib/signup/ZodError';
 import { handleZodValidation } from '@/lib/signup/ZodError';
 
 import { InputChangeEvent } from '@/lib/signup/inputChangeEvent';
-import SendEmailVerification from '@/lib/signup/sendEmailVerification';
 
 const SignUp: React.FC = () => {
 
@@ -55,15 +53,14 @@ const SignUp: React.FC = () => {
     };
 
     const onClickSubmit = async (data: signUpAuthType) => {
-        // TODO create user with mongoose
-        // TODO sendEmailVerificxation        
+        userCreateDB(data);
     };
 
     const schemaParse = (data: signUpAuthType) => {
         handleZodValidation({
             onError: setErrors,
             data: data,
-            onSuccess: async () => {
+            onSuccess: () => {
                 setErrors({});
                 onClickSubmit(data);
                 resetSignUpData();

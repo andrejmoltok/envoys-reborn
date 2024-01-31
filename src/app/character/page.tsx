@@ -16,11 +16,13 @@ interface AbilityScore {
     wisdom: number;
 }
 
+
+
 export default function Page() {
 
     const router = useRouter();
 
-    const [serial, setSerial] = useState<number>(0);
+    const [serial, setSerial] = useState<string>("#1");
     const [sex, setSex] = useState<string>("male");
     const [raceSelect, setRaceSelect] = useState<string>("human");
     const [gameStyle, setGameStyle] = useState<string>("lightcore");
@@ -32,20 +34,6 @@ export default function Page() {
         strength: 1,
         wisdom: 1
     });
-
-    const storeUserObject = {
-        sex: sex,
-        serial: serial,
-        raceSelect: raceSelect,
-        gameStyle: gameStyle,
-        agreed: true,
-        charismaBonus: abilityScore.charisma,
-        constitutionBonus: abilityScore.constitution,
-        dexterityBonus: abilityScore.dexterity,
-        intelligenceBonus: abilityScore.intelligence,
-        strengthBonus: abilityScore.strength,
-        wisdomBonus: abilityScore.wisdom,
-    };
 
     const setAbilityScoresByRace = (race: string) => {
         switch (race) {
@@ -65,7 +53,6 @@ export default function Page() {
                 return setAbilityScore({ charisma: 0, intelligence: 2, wisdom: 0, constitution: 0, strength: 0, dexterity: 1 });
             case 'darkelf':
                 return setAbilityScore({ charisma: 1, intelligence: 0, wisdom: 0, constitution: 0, strength: 0, dexterity: 2 });
-
             default:
                 return setAbilityScore({ charisma: 1, intelligence: 1, wisdom: 1, constitution: 1, strength: 1, dexterity: 1 });
         }

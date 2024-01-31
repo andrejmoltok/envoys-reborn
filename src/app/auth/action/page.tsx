@@ -9,8 +9,8 @@ import { redirect } from 'next/navigation';
 import styles from '@/styles/Layout.module.css';
 import fill from '@/styles/Fill.module.css';
 
-async function VerifyEmail( username: string, code: string) {
-    "use server"
+function VerifyEmail( username: string, code: string) {
+    
     //TODO check code for validity from Firestore
     //TODO set emailVerified field in Firestore to true
     //TODO display SUCCESS on screen
@@ -26,13 +26,11 @@ const Action = ({ searchParams }: { searchParams: { mode: string; user: string; 
     
     switch (searchParams.mode) {
         case ("verifyEmail"):
-            return VerifyEmail(searchParams.user, searchParams.actionCode);
+            VerifyEmail(searchParams.user, searchParams.actionCode);
         case ("passwordReset"):
-            return ResetPassword(searchParams.user,searchParams.actionCode);
+            ResetPassword(searchParams.user,searchParams.actionCode);
         default: {
-            return (
-                redirect('/')
-            )
+            redirect('/');
         }
     }
 }

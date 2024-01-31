@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id            Int      @id @default(autoincrement())
+  username      String   @db.VarChar(100)
+  email         String   @db.VarChar(100)
+  password      String   @db.VarChar(100)
+  emailVerified Boolean  @default(false)
+  createdAt     DateTime @default(now()) @db.DateTime(0)
+  updatedAt     DateTime @default(now()) @db.DateTime(0)
+  player        player?
+}
+
+model player {
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  firstname    String   @db.VarChar(100)
+  lastname     String   @db.VarChar(100)
+  role         String   @db.VarChar(100)
+  sex          String   @db.VarChar(100)
+  race         String   @db.VarChar(100)
+  serial       String   @db.VarChar(100)
+  money        Int
+  level        Int
+  rank         String   @db.VarChar(100)
+  strength     Int
+  dexterity    Int
+  constitution Int
+  intelligence Int
+  wisdom       Int
+  charisma     Int
+  createdAt    DateTime @default(now()) @db.DateTime(0)
+  updatedAt    DateTime @default(now()) @db.DateTime(0)
+  user         user     @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "player_user_FK")
+}

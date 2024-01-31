@@ -16,7 +16,6 @@
 export interface signUpDBInterface {
     firstname: string,
     lastname: string,
-    email: string,
     role: string,
     sex: string,
     race: string,
