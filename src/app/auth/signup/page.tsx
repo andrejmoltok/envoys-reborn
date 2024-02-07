@@ -11,7 +11,7 @@
 
 import React from 'react';
 
-import userCreateDB from '@/lib/signup/userCreateDB';
+import userCreateDB from './userCreateDB';
 
 import styles from '@/styles/Sign.module.css';
 import filling from '@/styles/Fill.module.css';
@@ -71,7 +71,7 @@ const SignUp: React.FC = () => {
 
 
     return (
-        <main className={style.border}>
+        <div className={style.border}>
             <div className={filling.fill}>
                 <div className={styles.signup}>
                         <input
@@ -124,7 +124,7 @@ const SignUp: React.FC = () => {
                         </div>
                 </div>
             </div>
-        </main>
+        </div>
     )
 }
 
