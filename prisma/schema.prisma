@@ -8,35 +8,44 @@ datasource db {
 }
 
 model user {
-  id            Int      @id @default(autoincrement())
-  username      String   @db.VarChar(100)
-  email         String   @db.VarChar(100)
-  password      String   @db.VarChar(100)
-  emailVerified Boolean  @default(false)
-  createdAt     DateTime @default(now()) @db.DateTime(0)
-  updatedAt     DateTime @default(now()) @db.DateTime(0)
+  id            String       @id @db.VarChar(32)
+  username      String       @db.VarChar(100)
+  email         String       @db.VarChar(100)
+  emailVerified Boolean
+  password      String       @db.VarChar(100)
+  createdAt     DateTime     @default(now()) @db.DateTime(0)
+  updatedAt     DateTime     @default(now()) @db.DateTime(0)
   player        player?
+  sessionData   sessionData?
 }
 
 model player {
-  id           Int      @id @default(autoincrement())
-  userId       Int
+  id           String   @id @db.VarChar(32)
+  userID       String   @unique(map: "player_unique") @db.VarChar(32)
   firstname    String   @db.VarChar(100)
   lastname     String   @db.VarChar(100)
   role         String   @db.VarChar(100)
   sex          String   @db.VarChar(100)
   race         String   @db.VarChar(100)
   serial       String   @db.VarChar(100)
-  money        Int
-  level        Int
+  money        Int      @default(100)
+  level        Int      @default(1)
   rank         String   @db.VarChar(100)
-  strength     Int
-  dexterity    Int
-  constitution Int
-  intelligence Int
-  wisdom       Int
-  charisma     Int
+  strength     Int      @default(0)
+  dexterity    Int      @default(0)
+  constitution Int      @default(0)
+  intelligence Int      @default(0)
+  wisdom       Int      @default(0)
+  charisma     Int      @default(0)
   createdAt    DateTime @default(now()) @db.DateTime(0)
   updatedAt    DateTime @default(now()) @db.DateTime(0)
-  user         user     @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "player_user_FK")
+  user         user     @relation(fields: [userID], references: [id], onDelete: Cascade, map: "player_user_FK")
+}
+
+model sessionData {
+  id          Int      @id @default(autoincrement())
+  userID      String   @unique(map: "sessionData_unique") @db.VarChar(32)
+  sessionData String   @db.VarChar(100)
+  createdAt   DateTime @default(now()) @db.DateTime(0)
+  user        user     @relation(fields: [userID], references: [id], onDelete: Cascade, map: "sessionData_user_FK")
 }
