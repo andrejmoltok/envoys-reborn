@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, redirect } from 'next/navigation';
 import Link from 'next/link';
 
 import styles from '@/styles/Nav.module.css'; // general styling
@@ -22,9 +22,15 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 // import Profile from '@/components/Profile';
 
+import useAuthStore from '@/lib/zustand/useAuthStore';
+import DeleteCookieSession from '@/lib/logout/deleteCookieSession';
+
 export default function Nav() {
   
   const router = useRouter();
+
+  const { isAuthenticated , userID } = useAuthStore();
+  const handleLogout = useAuthStore((state) => state.logout);
 
   // state for dropdown menu toggle
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -158,20 +164,22 @@ export default function Nav() {
           <div className={styles.navitem}>
             <Link className={styles.link} href="/forums_ooc"><FontAwesomeIcon icon={faPersonCircleMinus} style={{ color: "#252c36", }} /> OOC</Link>
           </div>
-          {/* <div className={styles.navitem}>
+          {isAuthenticated && <><div className={styles.navitem}>
             <FontAwesomeIcon icon={faUser} style={{ color: "#252c36", }} /> Adatlap
           </div>
-          <div className={styles.navitem} onClick={() => {auth.signOut(); router.push('/')}}>
+          <div className={styles.navitem} onClick={() => {DeleteCookieSession(userID); handleLogout(); router.push('/')}}>
             <FontAwesomeIcon icon={faArrowRightFromBracket} style={{ color: "#252c36", }} /> Kilépés
-          </div> */}
+          </div>
+          </>}
         
         
-          <div className={styles.navitem}>
+          {!isAuthenticated && <><div className={styles.navitem}>
             <Link className={styles.link} href="/auth/signin"><FontAwesomeIcon icon={faArrowRightToBracket} style={{ color: "#252c36", }} /> Belépés</Link>
           </div>
           <div className={styles.navitem}>
             <Link className={styles.link} href="/auth/signup"><FontAwesomeIcon icon={faUserPlus} style={{ color: "#252c36", }} /> Regisztráció</Link>
           </div>
+          </>}
         
       </div>}
 
@@ -213,20 +221,22 @@ export default function Nav() {
                 <div className={styles.navitem}>
                   <Link className={styles.link} onClick={() => setIsOpen(false)} href="/forums_ooc"><FontAwesomeIcon icon={faPersonCircleMinus} style={{ color: "#252c36", }} /> OOC</Link>
                 </div>
-                {/* <div className={styles.navitem}>
+                {isAuthenticated && <><div className={styles.navitem}>
                   <FontAwesomeIcon icon={faUser} style={{ color: "#252c36", }} /> Adatlap
                 </div>
-                <div className={styles.navitem} onClick={() => {auth.signOut(); router.push('/')}}>
+                <div className={styles.navitem} onClick={() => {DeleteCookieSession(userID); handleLogout(); router.push('/')}}>
                   <FontAwesomeIcon icon={faArrowRightFromBracket} style={{ color: "#252c36", }} /> Kilépés
-                </div> */}
+                </div>
+                </>}
               
               
-                <div className={styles.navitem}>
+                {!isAuthenticated && <><div className={styles.navitem}>
                   <Link className={styles.link} href="/auth/signin" onClick={() => setIsOpen(false)}><FontAwesomeIcon icon={faArrowRightToBracket} style={{ color: "#252c36", }} /> Bejelentkezés</Link>
                 </div>
                 <div className={styles.navitem}>
                   <Link className={styles.link} href="/auth/signup" onClick={() => setIsOpen(false)}><FontAwesomeIcon icon={faUserPlus} style={{ color: "#252c36", }} /> Regisztráció</Link>
                 </div>
+                </>}
               
             </div>
           </div>
@@ -249,21 +259,22 @@ export default function Nav() {
               <div className={styles.navitem}>
                 <Link className={styles.link} onClick={() => setIsOpen(false)} href="/forums_ooc"><FontAwesomeIcon icon={faPersonCircleMinus} style={{ color: "#252c36", }} /> OOC</Link>
               </div>
-              {/* {(userAuth) && <>
+              {isAuthenticated && <>
                 <div className={styles.navitem}>
                   <FontAwesomeIcon icon={faUser} style={{ color: "#252c36", }} /> Adatlap
                 </div>
-                <div className={styles.navitem} onClick={() => {auth.signOut(); router.push('/')}}>
+                <div className={styles.navitem} onClick={() => {DeleteCookieSession(userID); handleLogout(); router.push('/')}}>
                   <FontAwesomeIcon icon={faArrowRightFromBracket} style={{ color: "#252c36", }} /> Kilépés
                 </div>
-              </>} */}
+              </>}
               
-                <div className={styles.navitem}>
+                {!isAuthenticated && <><div className={styles.navitem}>
                   <Link className={styles.link} href="/auth/signin" onClick={() => setIsOpen(false)}><FontAwesomeIcon icon={faArrowRightToBracket} style={{ color: "#252c36", }} /> Bejelentkezés</Link>
                 </div>
                 <div className={styles.navitem}>
                   <Link className={styles.link} href="/auth/signup" onClick={() => setIsOpen(false)}><FontAwesomeIcon icon={faUserPlus} style={{ color: "#252c36", }} /> Regisztráció</Link>
                 </div>
+                </>}
               
             </div>
           </div>

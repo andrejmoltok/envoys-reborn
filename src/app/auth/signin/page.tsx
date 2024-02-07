@@ -1,104 +1,105 @@
-/**
- * @styles - general styling specific for the signup page
- * @fill & @style - styling specific app-wide
- * 
- * @signUpAuthType - specific for the signup process, contains username, email, password as string
- * @signUpZodSchema - signup process input validation
- * @InputChangeEvent - select between <input> or <select> element change event
- */
-
 'use client'
 
-import React from 'react';
-
-import userCreateDB from '@/lib/signup/userCreateDB';
+import React, { ChangeEvent } from 'react';
+import { useRouter, redirect } from 'next/navigation';
 
 import styles from '@/styles/Sign.module.css';
 import filling from '@/styles/Fill.module.css';
 import style from '@/styles/Layout.module.css';
 
-import type { signUpAuthType } from '@/lib/signup/signUpAuthType';
-import { signUpZodSchema } from '@/lib/signup/signUpZodSchema';
+import type { loginAuthType } from '@/lib/signin/loginAuthType';
+import { loginZodSchema } from '@/lib/signin/loginZodSchema';
 import { ValidationError } from '@/lib/signup/ZodError';
 import { handleZodValidation } from '@/lib/signup/ZodError';
 
-import { InputChangeEvent } from '@/lib/signup/inputChangeEvent';
+import userLoginDB from '@/lib/signin/userLoginDB';
+import useAuthStore from '@/lib/zustand/useAuthStore';
+import GetUserID from '@/lib/signin/getUserID';
+import GetCookie from '@/lib/signin/getCookie';
 
-const SignUp: React.FC = () => {
+const Login: React.FC = () => {
 
-    const [signUpData, setSignUpData] = React.useState<signUpAuthType>({
+    const { isAuthenticated } = useAuthStore();
+    const handleLogin = useAuthStore((state) => state.login);
+
+    const router = useRouter();
+    
+    const [loginData, setLoginData] = React.useState<loginAuthType>({
         username: "",
-        email: "",
         password: "",
         confirm: ""
     });
 
-    const [errors, setErrors] = React.useState<ValidationError<typeof signUpZodSchema>>({});
+    const [errors, setErrors] = React.useState<ValidationError<typeof loginZodSchema>>({});
     
-    const resetSignUpData = ():void => {
-        setSignUpData({
+    const resetLoginData = ():void => {
+        setLoginData({
             username: "",
-            email: "",
             password: "",
             confirm: ""
         })
     };
 
-    const handleInputChange = (e: InputChangeEvent) => {
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setSignUpData((prevData) => ({
+        setLoginData((prevData) => ({
             ...prevData,
             [name]: value,
         }));
     };
 
-    const onClickSubmit = async (data: signUpAuthType) => {
-        userCreateDB(data);
+    const onClickSubmit = async (data: loginAuthType) => {
+        try {
+            await userLoginDB(data);
+            const userID = await GetUserID(data);
+            const sessionData = await GetCookie();
+            handleLogin(true, userID, sessionData)
+            resetLoginData();
+            router.push('/forums_ic');
+        } catch (error) {
+            //TODO send notification to Admin UI with error.message
+            console.error(error);
+        }
     };
 
-    const schemaParse = (data: signUpAuthType) => {
+    const schemaParse = (data: loginAuthType) => {
         handleZodValidation({
             onError: setErrors,
             data: data,
             onSuccess: () => {
                 setErrors({});
                 onClickSubmit(data);
-                resetSignUpData();
+                resetLoginData();
             },
-            schema: signUpZodSchema,
+            schema: loginZodSchema,
         });
     };
 
-
+    // TODO create Account page/component
+    // if (isAuthenticated) {
+    //     redirect('/signin')
+    // }
+    
     return (
-        <main className={style.border}>
+        <>
+            <main className={style.border}>
             <div className={filling.fill}>
                 <div className={styles.signup}>
                         <input
                             type="text"
                             id="username"
                             name="username"
-                            value={signUpData.username}
+                            value={loginData.username}
                             onChange={(e) => handleInputChange(e)}
                             autoComplete='on'
                             placeholder="Gipsz Jakab"
                         />
 
                         <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={signUpData.email}
-                            onChange={(e) => handleInputChange(e)}
-                            autoComplete='on'
-                            placeholder="gipszjakab@gmail.com"
-                        />
-
-                        <input
                             type="password"
                             id="password"
                             name="password"
-                            value={signUpData.password}
+                            value={loginData.password}
                             onChange={(e) => handleInputChange(e)}
                             autoComplete='on'
                             placeholder="********"
@@ -108,24 +109,24 @@ const SignUp: React.FC = () => {
                             type="password"
                             id="confirm"
                             name="confirm"
-                            value={signUpData.confirm}
+                            value={loginData.confirm}
                             onChange={(e) => handleInputChange(e)}
                             autoComplete='on'
                             placeholder="********"
                         />
                         
-                        <button type="submit" onClick={() => schemaParse(signUpData)}>Regisztrálok</button>
+                        <button type="submit" onClick={() => schemaParse(loginData)}>Bejelentkezek</button>
 
                         <div className={styles.error}>
                             {errors && errors.username && <div style={{ color: "red" }}>Felhasználónév - {errors.username}</div>}
-                            {errors && errors.email && <div style={{ color: "red" }}>Email - {errors.email}</div>}
                             {errors && errors.password && <div style={{ color: "red" }}>Jelszó - {errors.password}</div>}
                             {errors && errors.confirm && <div style={{ color: "red" }}>Jelszó ismét - {errors.confirm}</div>}
                         </div>
                 </div>
             </div>
         </main>
+        </>
     )
 }
 
-export default SignUp;
+export default Login;
