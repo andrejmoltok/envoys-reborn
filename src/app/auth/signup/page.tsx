@@ -19,8 +19,8 @@ import style from '@/styles/Layout.module.css';
 
 import type { signUpAuthType } from '@/lib/signup/signUpAuthType';
 import { signUpZodSchema } from '@/lib/signup/signUpZodSchema';
-import { ValidationError } from '@/lib/signup/ZodError';
-import { handleZodValidation } from '@/lib/signup/ZodError';
+import { ValidationError } from '@/lib/ZodError';
+import { handleZodValidation } from '@/lib/ZodError';
 
 import { InputChangeEvent } from '@/lib/signup/inputChangeEvent';
 

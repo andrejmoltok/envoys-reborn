@@ -9,8 +9,8 @@ import style from '@/styles/Layout.module.css';
 
 import type { loginAuthType } from '@/lib/signin/loginAuthType';
 import { loginZodSchema } from '@/lib/signin/loginZodSchema';
-import { ValidationError } from '@/lib/signup/ZodError';
-import { handleZodValidation } from '@/lib/signup/ZodError';
+import { ValidationError } from '@/lib/ZodError';
+import { handleZodValidation } from '@/lib/ZodError';
 
 import userLoginDB from '@/lib/signin/userLoginDB';
 import useAuthStore from '@/lib/zustand/useAuthStore';
