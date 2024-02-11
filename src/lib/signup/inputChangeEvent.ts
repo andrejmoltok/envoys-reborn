@@ -1,5 +1,5 @@
-import React from 'react';
+import React from "react";
 
 export type InputChangeEvent =
-    | React.ChangeEvent<HTMLInputElement>
-    | React.ChangeEvent<HTMLSelectElement>;
+  | React.ChangeEvent<HTMLInputElement>
+  | React.ChangeEvent<HTMLSelectElement>;

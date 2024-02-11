@@ -5,43 +5,42 @@
  * @Nav @Pole @Footer - components used to render the app-wide layout
  */
 
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
-import React from 'react';
+import React from "react";
 
-import './globals.css';
-import styles from '@/styles/Layout.module.css';
-import fill from '@/styles/Fill.module.css';
+import "./globals.css";
+import styles from "@/styles/Layout.module.css";
+import fill from "@/styles/Fill.module.css";
 
-import localFont from 'next/font/local';
+import localFont from "next/font/local";
 
-import Nav from '@/components/Nav';
-import Pole from '@/components/Pole';
-import Footer from '@/components/Footer';
+import Nav from "@/components/Nav";
+import Pole from "@/components/Pole";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Küldöttek: Újjászületés",
   description: "Középkori stílusú mágikus fantázia szerepjáték",
   icons: {
-    icon: '/newland.jpg',
-  }
+    icon: "/newland.jpg",
+  },
 };
 
 const medievalSharp = localFont({
-  src: './font/MedievalSharp-Regular.ttf',
-  display: 'swap',
+  src: "./font/MedievalSharp-Regular.ttf",
+  display: "swap",
 });
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <React.StrictMode>
       <html lang="en">
         <body className={medievalSharp.className}>
-
           <header>
             <div className={styles.border}>
               <div className={styles.newland}>
@@ -58,16 +57,14 @@ export default function RootLayout({
           <nav>
             <div className={styles.border}>
               <div className={fill.fill}>
-                  <Nav />
+                <Nav />
               </div>
             </div>
           </nav>
 
           <Pole />
 
-          <main>
-            {children}
-          </main>
+          <main>{children}</main>
 
           <Pole />
 
@@ -78,9 +75,8 @@ export default function RootLayout({
               </div>
             </div>
           </footer>
-
         </body>
       </html>
     </React.StrictMode>
-  )
+  );
 }

@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import React from 'react';
-import { useRouter, redirect } from 'next/navigation';
-import Link from 'next/link';
+import React from "react";
+import { useRouter, redirect } from "next/navigation";
+import Link from "next/link";
 
-import styles from '@/styles/Nav.module.css'; // general styling
-import style from '@/styles/Layout.module.css'; // for dropdown menu border
+import styles from "@/styles/Nav.module.css"; // general styling
+import style from "@/styles/Layout.module.css"; // for dropdown menu border
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
   faLandmarkDome,
@@ -18,18 +18,17 @@ import {
   faPersonCircleMinus,
   faMonument,
   faUser,
-  faArrowRightFromBracket
-} from '@fortawesome/free-solid-svg-icons';
+  faArrowRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
 // import Profile from '@/components/Profile';
 
-import useAuthStore from '@/lib/zustand/useAuthStore';
-import DeleteCookieSession from '@/lib/logout/deleteCookieSession';
+import useAuthStore from "@/lib/zustand/useAuthStore";
+import DeleteCookieSession from "@/lib/logout/deleteCookieSession";
 
 export default function Nav() {
-  
   const router = useRouter();
 
-  const { isAuthenticated , userID } = useAuthStore();
+  const { isAuthenticated, userID } = useAuthStore();
   const handleLogout = useAuthStore((state) => state.logout);
 
   // state for dropdown menu toggle
@@ -42,27 +41,32 @@ export default function Nav() {
   };
 
   // state to store Menu icon Top and Left coordinates
-  const [menuTopLeft, setMenuTopLeft] = React.useState<{ screenY: number, screenX: number }>({ screenY: 0, screenX: 0 });
+  const [menuTopLeft, setMenuTopLeft] = React.useState<{
+    screenY: number;
+    screenX: number;
+  }>({ screenY: 0, screenX: 0 });
 
   // state to define `window` object
-  const [windowWidth, setWindowWidth] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 0);
+  const [windowWidth, setWindowWidth] = React.useState(
+    typeof window !== "undefined" ? window.innerWidth : 0
+  );
 
   // useeffect to auto-close dropdown menu at specific width
   React.useEffect(() => {
     const handleResize = () => {
-      if (typeof window !== 'undefined') {
+      if (typeof window !== "undefined") {
         setWindowWidth(window.innerWidth);
       }
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
-    if (typeof window !== 'undefined' && windowWidth > 1150) {
+    if (typeof window !== "undefined" && windowWidth > 1150) {
       setIsOpen(false);
-    };
+    }
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, [windowWidth]);
 
@@ -95,7 +99,7 @@ export default function Nav() {
       const iconleft = iconRect?.right! + window.scrollX - 140;
       const newTop = iconRect?.bottom! + window.scrollY + 18;
       setMenuTopLeft({ screenY: newTop, screenX: iconleft });
-    }
+    };
 
     // move dropdown menu on resize between for 775 and lower pixels
     const handleResize775 = () => {
@@ -103,7 +107,7 @@ export default function Nav() {
       const iconleft = iconRect?.right! + window.scrollX - 140;
       const newTop = iconRect?.bottom! + window.scrollY + 18;
       setMenuTopLeft({ screenY: newTop, screenX: iconleft });
-    }
+    };
 
     if (windowWidth > 775) {
       handleResize1150();
@@ -118,8 +122,7 @@ export default function Nav() {
     return () => {
       window.removeEventListener("resize", handleResize1150);
       window.removeEventListener("resize", handleResize775);
-    }
-
+    };
   }, [windowWidth]);
 
   // dropdown menu reference
@@ -135,150 +138,399 @@ export default function Nav() {
   // call auto-close function for dropdown menu with useEffect
   React.useEffect(() => {
     if (isOpen) {
-      window.addEventListener('click', handleClickOutside);
+      window.addEventListener("click", handleClickOutside);
     } else {
-      window.removeEventListener('click', handleClickOutside);
+      window.removeEventListener("click", handleClickOutside);
     }
     return () => {
-      window.removeEventListener('click', handleClickOutside);
+      window.removeEventListener("click", handleClickOutside);
     };
   }, [isOpen]);
 
   return (
     <>
       {/* Main menu */}
-      {<div className={styles.navbar}>
-        <div className={styles.navitem}>
-          <Link className={styles.link} href="/"><FontAwesomeIcon icon={faLandmarkDome} style={{ color: "#252c36", }} /> Főoldal</Link>
-        </div>
-        <div className={styles.navitem}>
-          <Link className={styles.link} href="/rules"><FontAwesomeIcon icon={faScroll} style={{ color: "#252c36", }} /> Szabályzat</Link>
-        </div>
-        {/* <div className={styles.navitem}>
+      {
+        <div className={styles.navbar}>
+          <div className={styles.navitem}>
+            <Link className={styles.link} href="/">
+              <FontAwesomeIcon
+                icon={faLandmarkDome}
+                style={{ color: "#252c36" }}
+              />{" "}
+              Főoldal
+            </Link>
+          </div>
+          <div className={styles.navitem}>
+            <Link className={styles.link} href="/rules">
+              <FontAwesomeIcon icon={faScroll} style={{ color: "#252c36" }} />{" "}
+              Szabályzat
+            </Link>
+          </div>
+          {/* <div className={styles.navitem}>
           <Link className={styles.link} href="/history"><FontAwesomeIcon icon={faMonument} style={{ color: "#252c36", }} /> Történelem</Link>
         </div> */}
-        
+
           <div className={styles.navitem}>
-            <Link className={styles.link} href="/forums_ic"><FontAwesomeIcon icon={faPersonCirclePlus} style={{ color: "#252c36", }} /> IC</Link>
-          </div>
-          <div className={styles.navitem}>
-            <Link className={styles.link} href="/forums_ooc"><FontAwesomeIcon icon={faPersonCircleMinus} style={{ color: "#252c36", }} /> OOC</Link>
-          </div>
-          {isAuthenticated && <><div className={styles.navitem}>
-            <FontAwesomeIcon icon={faUser} style={{ color: "#252c36", }} /> Adatlap
-          </div>
-          <div className={styles.navitem} onClick={() => {DeleteCookieSession(userID); handleLogout(); router.push('/')}}>
-            <FontAwesomeIcon icon={faArrowRightFromBracket} style={{ color: "#252c36", }} /> Kilépés
-          </div>
-          </>}
-        
-        
-          {!isAuthenticated && <><div className={styles.navitem}>
-            <Link className={styles.link} href="/auth/signin"><FontAwesomeIcon icon={faArrowRightToBracket} style={{ color: "#252c36", }} /> Belépés</Link>
+            <Link className={styles.link} href="/forums_ic">
+              <FontAwesomeIcon
+                icon={faPersonCirclePlus}
+                style={{ color: "#252c36" }}
+              />{" "}
+              IC
+            </Link>
           </div>
           <div className={styles.navitem}>
-            <Link className={styles.link} href="/auth/signup"><FontAwesomeIcon icon={faUserPlus} style={{ color: "#252c36", }} /> Regisztráció</Link>
+            <Link className={styles.link} href="/forums_ooc">
+              <FontAwesomeIcon
+                icon={faPersonCircleMinus}
+                style={{ color: "#252c36" }}
+              />{" "}
+              OOC
+            </Link>
           </div>
-          </>}
-        
-      </div>}
+          {isAuthenticated && (
+            <>
+              <div className={styles.navitem}>
+                <FontAwesomeIcon icon={faUser} style={{ color: "#252c36" }} />{" "}
+                Adatlap
+              </div>
+              <div
+                className={styles.navitem}
+                onClick={() => {
+                  DeleteCookieSession(userID);
+                  handleLogout();
+                  router.push("/");
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={faArrowRightFromBracket}
+                  style={{ color: "#252c36" }}
+                />{" "}
+                Kilépés
+              </div>
+            </>
+          )}
+
+          {!isAuthenticated && (
+            <>
+              <div className={styles.navitem}>
+                <Link className={styles.link} href="/auth/signin">
+                  <FontAwesomeIcon
+                    icon={faArrowRightToBracket}
+                    style={{ color: "#252c36" }}
+                  />{" "}
+                  Belépés
+                </Link>
+              </div>
+              <div className={styles.navitem}>
+                <Link className={styles.link} href="/auth/signup">
+                  <FontAwesomeIcon
+                    icon={faUserPlus}
+                    style={{ color: "#252c36" }}
+                  />{" "}
+                  Regisztráció
+                </Link>
+              </div>
+            </>
+          )}
+        </div>
+      }
 
       {/* Shrunken menu @ < 1150px  */}
-      {<div className={styles.shrunkMenu1150}>
-        <div className={styles.navitem}>
-          <Link className={styles.link} href="/" onClick={() => { setIsOpen(false) }}><FontAwesomeIcon icon={faLandmarkDome} style={{ color: "#252c36", }} /> Főoldal</Link>
-        </div>
-        <div className={styles.navitem}>
-          <Link className={styles.link} href="/rules" onClick={() => { setIsOpen(false) }}><FontAwesomeIcon icon={faScroll} style={{ color: "#252c36", }} /> Szabályzat</Link>
-        </div>
-        {/* <div className={styles.navitem}>
+      {
+        <div className={styles.shrunkMenu1150}>
+          <div className={styles.navitem}>
+            <Link
+              className={styles.link}
+              href="/"
+              onClick={() => {
+                setIsOpen(false);
+              }}
+            >
+              <FontAwesomeIcon
+                icon={faLandmarkDome}
+                style={{ color: "#252c36" }}
+              />{" "}
+              Főoldal
+            </Link>
+          </div>
+          <div className={styles.navitem}>
+            <Link
+              className={styles.link}
+              href="/rules"
+              onClick={() => {
+                setIsOpen(false);
+              }}
+            >
+              <FontAwesomeIcon icon={faScroll} style={{ color: "#252c36" }} />{" "}
+              Szabályzat
+            </Link>
+          </div>
+          {/* <div className={styles.navitem}>
           <Link className={styles.link} href="/history" onClick={() => { setIsOpen(false) }}><FontAwesomeIcon icon={faMonument} style={{ color: "#252c36", }} /> Történelem</Link>
         </div> */}
-        <div className={styles.navitem} >
-          <div id="menuRoot1150" className={styles.hamburgerMenuIcon} onClick={handleMenuToggle}><FontAwesomeIcon icon={faBars} style={{ color: "#252c36", }} /> Menü</div>
-        </div>
-      </div>}
-
-      {/* Shrunken menu @ < 775px  */}
-      {<div className={styles.shrunkMenu775}>
-        <div className={styles.navitem}>
-          <Link className={styles.link} href="/" onClick={() => { setIsOpen(false) }}><FontAwesomeIcon icon={faLandmarkDome} style={{ color: "#252c36", }} /> Főoldal</Link>
-        </div>
-        <div className={styles.navitem} >
-          <div id="menuRoot775" className={styles.hamburgerMenuIcon} onClick={handleMenuToggle}><FontAwesomeIcon icon={faBars} style={{ color: "#252c36", }} /> Menü</div>
-        </div>
-      </div>}
-
-      {/* Open dorpdown menu on onClick event at 1150 pixels */}
-      {windowWidth >= 775 && windowWidth <= 1150 && isOpen &&
-        <div style={{ position: 'absolute', top: `${menuTopLeft.screenY}px`, left: `${menuTopLeft.screenX}px`, zIndex: 1 }} ref={dropdownRef}>
-          <div className={style.border}>
-            <div className={styles.hamburgerMenu}>
-              
-                <div className={styles.navitem}>
-                  <Link className={styles.link} onClick={() => setIsOpen(false)} href="/forums_ic"><FontAwesomeIcon icon={faPersonCirclePlus} style={{ color: "#252c36", }} /> IC</Link>
-                </div>
-                <div className={styles.navitem}>
-                  <Link className={styles.link} onClick={() => setIsOpen(false)} href="/forums_ooc"><FontAwesomeIcon icon={faPersonCircleMinus} style={{ color: "#252c36", }} /> OOC</Link>
-                </div>
-                {isAuthenticated && <><div className={styles.navitem}>
-                  <FontAwesomeIcon icon={faUser} style={{ color: "#252c36", }} /> Adatlap
-                </div>
-                <div className={styles.navitem} onClick={() => {DeleteCookieSession(userID); handleLogout(); router.push('/')}}>
-                  <FontAwesomeIcon icon={faArrowRightFromBracket} style={{ color: "#252c36", }} /> Kilépés
-                </div>
-                </>}
-              
-              
-                {!isAuthenticated && <><div className={styles.navitem}>
-                  <Link className={styles.link} href="/auth/signin" onClick={() => setIsOpen(false)}><FontAwesomeIcon icon={faArrowRightToBracket} style={{ color: "#252c36", }} /> Bejelentkezés</Link>
-                </div>
-                <div className={styles.navitem}>
-                  <Link className={styles.link} href="/auth/signup" onClick={() => setIsOpen(false)}><FontAwesomeIcon icon={faUserPlus} style={{ color: "#252c36", }} /> Regisztráció</Link>
-                </div>
-                </>}
-              
+          <div className={styles.navitem}>
+            <div
+              id="menuRoot1150"
+              className={styles.hamburgerMenuIcon}
+              onClick={handleMenuToggle}
+            >
+              <FontAwesomeIcon icon={faBars} style={{ color: "#252c36" }} />{" "}
+              Menü
             </div>
           </div>
-        </div>}
+        </div>
+      }
 
-      {/* Open dorpdown menu on onClick event at 775 pixels */}
-      {windowWidth <= 775 && isOpen &&
-        <div style={{ position: 'absolute', top: `${menuTopLeft.screenY}px`, left: `${menuTopLeft.screenX}px`, zIndex: 1 }} ref={dropdownRef}>
+      {/* Shrunken menu @ < 775px  */}
+      {
+        <div className={styles.shrunkMenu775}>
+          <div className={styles.navitem}>
+            <Link
+              className={styles.link}
+              href="/"
+              onClick={() => {
+                setIsOpen(false);
+              }}
+            >
+              <FontAwesomeIcon
+                icon={faLandmarkDome}
+                style={{ color: "#252c36" }}
+              />{" "}
+              Főoldal
+            </Link>
+          </div>
+          <div className={styles.navitem}>
+            <div
+              id="menuRoot775"
+              className={styles.hamburgerMenuIcon}
+              onClick={handleMenuToggle}
+            >
+              <FontAwesomeIcon icon={faBars} style={{ color: "#252c36" }} />{" "}
+              Menü
+            </div>
+          </div>
+        </div>
+      }
+
+      {/* Open dorpdown menu on onClick event at 1150 pixels */}
+      {windowWidth >= 775 && windowWidth <= 1150 && isOpen && (
+        <div
+          style={{
+            position: "absolute",
+            top: `${menuTopLeft.screenY}px`,
+            left: `${menuTopLeft.screenX}px`,
+            zIndex: 1,
+          }}
+          ref={dropdownRef}
+        >
           <div className={style.border}>
             <div className={styles.hamburgerMenu}>
               <div className={styles.navitem}>
-                <Link className={styles.link} href="/rules" onClick={() => { setIsOpen(false) }}><FontAwesomeIcon icon={faScroll} style={{ color: "#252c36", }} /> Szabályzat</Link>
+                <Link
+                  className={styles.link}
+                  onClick={() => setIsOpen(false)}
+                  href="/forums_ic"
+                >
+                  <FontAwesomeIcon
+                    icon={faPersonCirclePlus}
+                    style={{ color: "#252c36" }}
+                  />{" "}
+                  IC
+                </Link>
+              </div>
+              <div className={styles.navitem}>
+                <Link
+                  className={styles.link}
+                  onClick={() => setIsOpen(false)}
+                  href="/forums_ooc"
+                >
+                  <FontAwesomeIcon
+                    icon={faPersonCircleMinus}
+                    style={{ color: "#252c36" }}
+                  />{" "}
+                  OOC
+                </Link>
+              </div>
+              {isAuthenticated && (
+                <>
+                  <div className={styles.navitem}>
+                    <FontAwesomeIcon
+                      icon={faUser}
+                      style={{ color: "#252c36" }}
+                    />{" "}
+                    Adatlap
+                  </div>
+                  <div
+                    className={styles.navitem}
+                    onClick={() => {
+                      DeleteCookieSession(userID);
+                      handleLogout();
+                      router.push("/");
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faArrowRightFromBracket}
+                      style={{ color: "#252c36" }}
+                    />{" "}
+                    Kilépés
+                  </div>
+                </>
+              )}
+
+              {!isAuthenticated && (
+                <>
+                  <div className={styles.navitem}>
+                    <Link
+                      className={styles.link}
+                      href="/auth/signin"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <FontAwesomeIcon
+                        icon={faArrowRightToBracket}
+                        style={{ color: "#252c36" }}
+                      />{" "}
+                      Bejelentkezés
+                    </Link>
+                  </div>
+                  <div className={styles.navitem}>
+                    <Link
+                      className={styles.link}
+                      href="/auth/signup"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <FontAwesomeIcon
+                        icon={faUserPlus}
+                        style={{ color: "#252c36" }}
+                      />{" "}
+                      Regisztráció
+                    </Link>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Open dorpdown menu on onClick event at 775 pixels */}
+      {windowWidth <= 775 && isOpen && (
+        <div
+          style={{
+            position: "absolute",
+            top: `${menuTopLeft.screenY}px`,
+            left: `${menuTopLeft.screenX}px`,
+            zIndex: 1,
+          }}
+          ref={dropdownRef}
+        >
+          <div className={style.border}>
+            <div className={styles.hamburgerMenu}>
+              <div className={styles.navitem}>
+                <Link
+                  className={styles.link}
+                  href="/rules"
+                  onClick={() => {
+                    setIsOpen(false);
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={faScroll}
+                    style={{ color: "#252c36" }}
+                  />{" "}
+                  Szabályzat
+                </Link>
               </div>
               {/* <div className={styles.navitem}>
                 <Link className={styles.link} href="/history" onClick={() => { setIsOpen(false) }}><FontAwesomeIcon icon={faMonument} style={{ color: "#252c36", }} /> Történelem</Link>
               </div> */}
               <div className={styles.navitem}>
-                <Link className={styles.link} onClick={() => setIsOpen(false)} href="/forums_ic"><FontAwesomeIcon icon={faPersonCirclePlus} style={{ color: "#252c36", }} /> IC</Link>
+                <Link
+                  className={styles.link}
+                  onClick={() => setIsOpen(false)}
+                  href="/forums_ic"
+                >
+                  <FontAwesomeIcon
+                    icon={faPersonCirclePlus}
+                    style={{ color: "#252c36" }}
+                  />{" "}
+                  IC
+                </Link>
               </div>
               <div className={styles.navitem}>
-                <Link className={styles.link} onClick={() => setIsOpen(false)} href="/forums_ooc"><FontAwesomeIcon icon={faPersonCircleMinus} style={{ color: "#252c36", }} /> OOC</Link>
+                <Link
+                  className={styles.link}
+                  onClick={() => setIsOpen(false)}
+                  href="/forums_ooc"
+                >
+                  <FontAwesomeIcon
+                    icon={faPersonCircleMinus}
+                    style={{ color: "#252c36" }}
+                  />{" "}
+                  OOC
+                </Link>
               </div>
-              {isAuthenticated && <>
-                <div className={styles.navitem}>
-                  <FontAwesomeIcon icon={faUser} style={{ color: "#252c36", }} /> Adatlap
-                </div>
-                <div className={styles.navitem} onClick={() => {DeleteCookieSession(userID); handleLogout(); router.push('/')}}>
-                  <FontAwesomeIcon icon={faArrowRightFromBracket} style={{ color: "#252c36", }} /> Kilépés
-                </div>
-              </>}
-              
-                {!isAuthenticated && <><div className={styles.navitem}>
-                  <Link className={styles.link} href="/auth/signin" onClick={() => setIsOpen(false)}><FontAwesomeIcon icon={faArrowRightToBracket} style={{ color: "#252c36", }} /> Bejelentkezés</Link>
-                </div>
-                <div className={styles.navitem}>
-                  <Link className={styles.link} href="/auth/signup" onClick={() => setIsOpen(false)}><FontAwesomeIcon icon={faUserPlus} style={{ color: "#252c36", }} /> Regisztráció</Link>
-                </div>
-                </>}
-              
+              {isAuthenticated && (
+                <>
+                  <div className={styles.navitem}>
+                    <FontAwesomeIcon
+                      icon={faUser}
+                      style={{ color: "#252c36" }}
+                    />{" "}
+                    Adatlap
+                  </div>
+                  <div
+                    className={styles.navitem}
+                    onClick={() => {
+                      DeleteCookieSession(userID);
+                      handleLogout();
+                      router.push("/");
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faArrowRightFromBracket}
+                      style={{ color: "#252c36" }}
+                    />{" "}
+                    Kilépés
+                  </div>
+                </>
+              )}
+
+              {!isAuthenticated && (
+                <>
+                  <div className={styles.navitem}>
+                    <Link
+                      className={styles.link}
+                      href="/auth/signin"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <FontAwesomeIcon
+                        icon={faArrowRightToBracket}
+                        style={{ color: "#252c36" }}
+                      />{" "}
+                      Bejelentkezés
+                    </Link>
+                  </div>
+                  <div className={styles.navitem}>
+                    <Link
+                      className={styles.link}
+                      href="/auth/signup"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <FontAwesomeIcon
+                        icon={faUserPlus}
+                        style={{ color: "#252c36" }}
+                      />{" "}
+                      Regisztráció
+                    </Link>
+                  </div>
+                </>
+              )}
             </div>
           </div>
-        </div>}
+        </div>
+      )}
     </>
-  )
+  );
 }
