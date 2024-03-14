@@ -1,62 +1,80 @@
-"use client"
+"use client";
 
-import React, { useState, useEffect, useCallback, ChangeEvent } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect, useContext } from "react";
+import { useRouter } from "next/navigation";
 
-import styles from '@/styles/Layout.module.css';
-import fill from '@/styles/Fill.module.css';
+import styles from "@/styles/Layout.module.css";
+import fill from "@/styles/Fill.module.css";
+
+import { AuthContext } from "@/context/AuthContextProvider/AuthContext";
+
+import setAgreed from "@/lib/rules/setAgreed";
+import AgreedCheck from "@/lib/rules/agreedCheck";
 
 function Rulebook() {
+  const router = useRouter();
 
-    const router = useRouter();
+  const [isAuth] = useContext(AuthContext);
 
-    const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [isChecked, setIsChecked] = useState<boolean>(false);
 
-    const [agreedCheck, setAgreedCheck] = useState<boolean>(false);
+  const [agreedCheck, setAgreedCheck] = useState<boolean>(false);
 
-    const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setIsChecked(event.target.checked);
-    };
+  useEffect(() => {
+    (async () => {
+      const agreed = await AgreedCheck();
+      if (agreed === 1) {
+        setAgreedCheck(true);
+      } else {
+        setAgreedCheck(false);
+      }
+    })();
+  }, []);
 
-    const redirectToCharacter = useCallback(() => {
-        router.push('/character');
-    }, [router])
+  useEffect(() => {
+    (async () => {
+      if (isAuth && isChecked) {
+        router.push("/character");
+      }
+    })();
+  }, [isChecked, isAuth, agreedCheck, router]);
 
-    useEffect(() => {
-        if (isChecked) {
-            redirectToCharacter()
-        };
-    }, [isChecked, redirectToCharacter]);
-
-    return (
-        <>
-
-            {(!isChecked) &&
-                <div>
-                    <input type="checkbox" id="rules" name="rulesCheckbox" checked={isChecked} onChange={handleCheckboxChange} />
-                    <label htmlFor="rules">Hereby I agree to the Rules of the Game</label>
-                </div>}
-            {/* {() &&
-                <div>
-                    <input type="checkbox" id="rules" name="rulesCheckbox" disabled checked />
-                    <label htmlFor="rules">Hereby I agree to the Rules of the Game</label>
-                </div>
-            } */}
-
-        </>
-    )
+  return (
+    <>
+      {agreedCheck === false && isChecked === false ? (
+        <div>
+          <input
+            type="checkbox"
+            id="rules"
+            name="rules"
+            checked={isChecked}
+            onChange={async () => {
+              await setAgreed();
+              setIsChecked(true);
+            }}
+          />
+          <label htmlFor="rules">Ezennel elfogadom a Játék Szabályzatát!</label>
+        </div>
+      ) : null}
+      {agreedCheck && !isChecked ? (
+        <div>
+          <input type="checkbox" id="rules" name="rules" disabled checked />
+          <label htmlFor="rules">Ezennel elfogadom a Játék Szabályzatát!</label>
+        </div>
+      ) : null}
+    </>
+  );
 }
 
 export default function RenderRules() {
-
-    return (
-        <>
-            <div className={styles.border}>
-                <div className={fill.fill}>
-                    RULES
-                    {<Rulebook />}
-                </div>
-            </div>
-        </>
-    )
+  return (
+    <>
+      <div className={styles.border}>
+        <div className={fill.fill}>
+          SZABÁLYZAT
+          {<Rulebook />}
+        </div>
+      </div>
+    </>
+  );
 }

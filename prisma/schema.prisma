@@ -13,6 +13,7 @@ model user {
   email         String    @db.VarChar(100)
   emailVerified Boolean
   passwordHash  String    @db.VarChar(500)
+  agreed        Int       @default(0) @db.UnsignedTinyInt
   createdAt     DateTime  @default(now()) @db.Timestamp(0)
   updatedAt     DateTime  @default(now()) @db.Timestamp(0)
   player        player[]
