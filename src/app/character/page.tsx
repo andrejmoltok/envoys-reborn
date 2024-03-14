@@ -1,28 +1,29 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 
 import style from "@/styles/Layout.module.css";
 import fill from "@/styles/Fill.module.css";
 import styles from "@/styles/Character.module.css";
 
-interface AbilityScore {
-  charisma: number;
-  constitution: number;
-  dexterity: number;
-  intelligence: number;
-  strength: number;
-  wisdom: number;
-}
+import { AbilityScore } from "@/lib/character/AbilityScore";
+import { Player } from "@/lib/character/Player";
+import SavePlayer from "@/lib/character/SavePlayer";
 
 export default function Page() {
   const router = useRouter();
 
-  const [serial, setSerial] = useState<string>("#1");
-  const [sex, setSex] = useState<string>("male");
-  const [raceSelect, setRaceSelect] = useState<string>("human");
-  const [gameStyle, setGameStyle] = useState<string>("lightcore");
+  const [player, setPlayer] = useState<Player>({
+    firstname: "",
+    lastname: "",
+    sex: "male",
+    race: "human",
+    rank: "Kezdő Játékos",
+    serial: "",
+    gameStyle: "",
+  });
+
   const [abilityScore, setAbilityScore] = useState<AbilityScore>({
     charisma: 1,
     constitution: 1,
@@ -31,6 +32,14 @@ export default function Page() {
     strength: 1,
     wisdom: 1,
   });
+
+  const setPlayerData = (event: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    setPlayer((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const setAbilityScoresByRace = (race: string) => {
     switch (race) {
@@ -173,8 +182,9 @@ export default function Page() {
                   <div>
                     <select
                       id="sex"
-                      onClick={(e) => {
-                        setSex((e.target as HTMLSelectElement).value);
+                      name="sex"
+                      onChange={(e) => {
+                        setPlayerData(e);
                       }}
                     >
                       <option value="male">Male</option>
@@ -184,8 +194,9 @@ export default function Page() {
                   <div>
                     <select
                       id="race"
-                      onClick={(e) => {
-                        setRaceSelect((e.target as HTMLSelectElement).value),
+                      name="race"
+                      onChange={(e) => {
+                        setPlayerData(e),
                           setAbilityScoresByRace(
                             (e.target as HTMLSelectElement).value
                           );
@@ -230,8 +241,9 @@ export default function Page() {
                   <div>
                     <select
                       id="gameStyle"
-                      onClick={(e) => {
-                        setGameStyle((e.target as HTMLSelectElement).value);
+                      name="gameStyle"
+                      onChange={(e) => {
+                        setPlayerData(e);
                       }}
                     >
                       <option value="lightcore">Lightcore</option>
@@ -243,7 +255,8 @@ export default function Page() {
               </div>
               <div id={styles.unique}>
                 <button
-                  onClick={() => {
+                  onClick={async () => {
+                    await SavePlayer({ player, abilityScore });
                     router.push("/forums_ic");
                   }}
                 >

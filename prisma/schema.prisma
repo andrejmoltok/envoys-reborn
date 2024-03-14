@@ -25,11 +25,11 @@ model player {
   userID       String   @db.VarChar(16)
   firstname    String   @db.VarChar(100)
   lastname     String   @db.VarChar(100)
-  role         String   @db.VarChar(100)
   sex          String   @db.VarChar(100)
   race         String   @db.VarChar(100)
   rank         String   @db.VarChar(100)
   serial       String   @db.VarChar(100)
+  gameStyle    String   @db.VarChar(100)
   money        Int      @default(100) @db.UnsignedInt
   level        Int      @default(1) @db.UnsignedInt
   strength     Int      @default(0) @db.UnsignedInt
