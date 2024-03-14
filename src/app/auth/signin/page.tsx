@@ -13,14 +13,10 @@ import { ValidationError } from "@/lib/ZodError";
 import { handleZodValidation } from "@/lib/ZodError";
 
 import userLoginDB from "@/lib/signin/userLoginDB";
-import useAuthStore from "@/lib/zustand/useAuthStore";
 import GetUserID from "@/lib/signin/getUserID";
 import GetCookie from "@/lib/signin/getCookie";
 
 const Login: React.FC = () => {
-  const { isAuthenticated } = useAuthStore();
-  const handleLogin = useAuthStore((state) => state.login);
-
   const router = useRouter();
 
   const [loginData, setLoginData] = React.useState<loginAuthType>({
@@ -41,6 +37,14 @@ const Login: React.FC = () => {
     });
   };
 
+  const resetPass = (): void => {
+    setLoginData({
+      username: loginData.username,
+      password: "",
+      confirm: "",
+    });
+  };
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setLoginData((prevData) => ({
@@ -50,16 +54,15 @@ const Login: React.FC = () => {
   };
 
   const onClickSubmit = async (data: loginAuthType) => {
-    try {
-      await userLoginDB(data);
+    const loginSuccess = await userLoginDB(data);
+
+    if (loginSuccess === false) {
+      resetPass();
+    } else {
       const userID = await GetUserID(data);
       const sessionData = await GetCookie();
-      handleLogin(true, userID, sessionData);
       resetLoginData();
       router.replace("/forums_ic");
-    } catch (error) {
-      //TODO send notification to Admin UI with error.message
-      console.error(error);
     }
   };
 

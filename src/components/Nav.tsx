@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { useRouter, redirect } from "next/navigation";
+import React, { useContext } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 import styles from "@/styles/Nav.module.css"; // general styling
@@ -20,16 +20,15 @@ import {
   faUser,
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
-// import Profile from '@/components/Profile';
 
-import useAuthStore from "@/lib/zustand/useAuthStore";
-import DeleteCookieSession from "@/lib/logout/deleteCookieSession";
+import UpdateSession from "@/lib/logout/updateSession";
+import { AuthContext } from "@/context/AuthContextProvider/AuthContext";
 
 export default function Nav() {
   const router = useRouter();
 
-  const { isAuthenticated, userID } = useAuthStore();
-  const handleLogout = useAuthStore((state) => state.logout);
+  // authentication context
+  const [isAuth, setIsAuth] = useContext(AuthContext);
 
   // state for dropdown menu toggle
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -83,20 +82,20 @@ export default function Nav() {
 
     // put dropdown menu to calculated coordinates between 775 and 1150 pixels
     const iconRect1150 = menuIcon1150?.getBoundingClientRect();
-    const iconLeft1150 = iconRect1150?.right! + window.scrollX - 140;
+    const iconLeft1150 = iconRect1150?.right! + window.scrollX - 180;
     const newTop1150 = iconRect1150?.bottom! + window.scrollY + 18;
     setMenuTopLeft({ screenY: newTop1150, screenX: iconLeft1150 });
 
     // put dropdown menu to claculated coordinates for 775 and lower pixels
     const iconRect775 = menuIcon775?.getBoundingClientRect();
-    const iconLeft775 = iconRect775?.right! + window.scrollX - 140;
+    const iconLeft775 = iconRect775?.right! + window.scrollX - 180;
     const newTop775 = iconRect775?.bottom! + window.scrollY + 18;
     setMenuTopLeft({ screenY: newTop775, screenX: iconLeft775 });
 
     // move dropdown menu on resize between 775 and 1150 pixels
     const handleResize1150 = () => {
       const iconRect = menuIcon1150?.getBoundingClientRect();
-      const iconleft = iconRect?.right! + window.scrollX - 140;
+      const iconleft = iconRect?.right! + window.scrollX - 180;
       const newTop = iconRect?.bottom! + window.scrollY + 18;
       setMenuTopLeft({ screenY: newTop, screenX: iconleft });
     };
@@ -104,7 +103,7 @@ export default function Nav() {
     // move dropdown menu on resize between for 775 and lower pixels
     const handleResize775 = () => {
       const iconRect = menuIcon775?.getBoundingClientRect();
-      const iconleft = iconRect?.right! + window.scrollX - 140;
+      const iconleft = iconRect?.right! + window.scrollX - 180;
       const newTop = iconRect?.bottom! + window.scrollY + 18;
       setMenuTopLeft({ screenY: newTop, screenX: iconleft });
     };
@@ -189,7 +188,7 @@ export default function Nav() {
               OOC
             </Link>
           </div>
-          {isAuthenticated && (
+          {isAuth && (
             <>
               <div className={styles.navitem}>
                 <FontAwesomeIcon icon={faUser} style={{ color: "#252c36" }} />{" "}
@@ -198,8 +197,7 @@ export default function Nav() {
               <div
                 className={styles.navitem}
                 onClick={() => {
-                  DeleteCookieSession(userID);
-                  handleLogout();
+                  // TODO delete session cookie, set isAuth as false
                   router.push("/");
                 }}
               >
@@ -212,7 +210,7 @@ export default function Nav() {
             </>
           )}
 
-          {!isAuthenticated && (
+          {!isAuth && (
             <>
               <div className={styles.navitem}>
                 <Link className={styles.link} href="/auth/signin">
@@ -353,7 +351,7 @@ export default function Nav() {
                   OOC
                 </Link>
               </div>
-              {isAuthenticated && (
+              {isAuth && (
                 <>
                   <div className={styles.navitem}>
                     <FontAwesomeIcon
@@ -365,8 +363,7 @@ export default function Nav() {
                   <div
                     className={styles.navitem}
                     onClick={() => {
-                      DeleteCookieSession(userID);
-                      handleLogout();
+                      // TODO
                       router.push("/");
                     }}
                   >
@@ -379,7 +376,7 @@ export default function Nav() {
                 </>
               )}
 
-              {!isAuthenticated && (
+              {!isAuth && (
                 <>
                   <div className={styles.navitem}>
                     <Link
@@ -471,7 +468,7 @@ export default function Nav() {
                   OOC
                 </Link>
               </div>
-              {isAuthenticated && (
+              {isAuth && (
                 <>
                   <div className={styles.navitem}>
                     <FontAwesomeIcon
@@ -483,8 +480,7 @@ export default function Nav() {
                   <div
                     className={styles.navitem}
                     onClick={() => {
-                      DeleteCookieSession(userID);
-                      handleLogout();
+                      // TODO
                       router.push("/");
                     }}
                   >
@@ -497,7 +493,7 @@ export default function Nav() {
                 </>
               )}
 
-              {!isAuthenticated && (
+              {!isAuth && (
                 <>
                   <div className={styles.navitem}>
                     <Link
