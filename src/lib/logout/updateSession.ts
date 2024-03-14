@@ -1,10 +1,9 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma/PrismaClient";
 
 export default async function UpdateSession(ID: string): Promise<void> {
-  const prisma = new PrismaClient();
   const cookieStore = cookies();
 
   try {
@@ -13,10 +12,10 @@ export default async function UpdateSession(ID: string): Promise<void> {
         AND: [
           {
             userID: {
-              equals: ID,
+              equals: ID, // searches for the first session entry with the given userID
             },
             status: {
-              equals: "active",
+              equals: "active", // searches for the first session entry which is `active`, based on userID
             },
           },
         ],

@@ -1,12 +1,10 @@
 "use server";
 
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma/PrismaClient";
 import { loginAuthType } from "./loginAuthType";
 
 export default async function GetUserID(data: loginAuthType): Promise<string> {
-  const prisma = new PrismaClient();
-
-  const findUser = await prisma.user.findFirst({
+  const findUser = await prisma.user.findUnique({
     where: {
       username: data.username,
     },

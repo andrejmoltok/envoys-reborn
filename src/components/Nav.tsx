@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+
+import Iron from "@hapi/iron";
 
 import styles from "@/styles/Nav.module.css"; // general styling
 import style from "@/styles/Layout.module.css"; // for dropdown menu border
@@ -22,13 +24,48 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import UpdateSession from "@/lib/logout/updateSession";
+import SessionData from "@/actions/Server/sessionData";
 import { AuthContext } from "@/context/AuthContextProvider/AuthContext";
+import { SessionContext } from "@/context/SessionContextProvider/SessionContext";
 
 export default function Nav() {
   const router = useRouter();
 
   // authentication context
   const [isAuth, setIsAuth] = useContext(AuthContext);
+
+  // session context
+  const [isSession, setIsSession] = useContext(SessionContext);
+
+  const [unseal, setUnseal] = useState<{
+    userID: string;
+    email: string;
+    userIP: string;
+    randomNano: string;
+  }>({
+    userID: "",
+    email: "",
+    userIP: "",
+    randomNano: "",
+  });
+
+  // TODO replace this useEffect with a Tanstack useQuery()
+  useEffect(() => {
+    async function fetchData() {
+      const unsealed = await SessionData();
+
+      setUnseal((prevSeal) => ({
+        ...prevSeal,
+        userID: unsealed.userID,
+        email: unsealed.email,
+        userIP: unsealed.userIP,
+        randomNano: unsealed.randomNano,
+      }));
+    }
+    if (isSession !== "" && isAuth === true) {
+      fetchData();
+    }
+  }, [isAuth, isSession]);
 
   // state for dropdown menu toggle
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -196,8 +233,10 @@ export default function Nav() {
               </div>
               <div
                 className={styles.navitem}
-                onClick={() => {
-                  // TODO delete session cookie, set isAuth as false
+                onClick={async () => {
+                  await UpdateSession(unseal.userID);
+                  setIsAuth(false);
+                  setIsSession("");
                   router.push("/");
                 }}
               >
@@ -362,8 +401,10 @@ export default function Nav() {
                   </div>
                   <div
                     className={styles.navitem}
-                    onClick={() => {
-                      // TODO
+                    onClick={async () => {
+                      await UpdateSession(unseal.userID);
+                      setIsAuth(false);
+                      setIsSession("");
                       router.push("/");
                     }}
                   >
@@ -479,8 +520,10 @@ export default function Nav() {
                   </div>
                   <div
                     className={styles.navitem}
-                    onClick={() => {
-                      // TODO
+                    onClick={async () => {
+                      await UpdateSession(unseal.userID);
+                      setIsAuth(false);
+                      setIsSession("");
                       router.push("/");
                     }}
                   >

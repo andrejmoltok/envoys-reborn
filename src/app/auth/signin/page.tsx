@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useContext } from "react";
 import { useRouter, redirect } from "next/navigation";
 
 import styles from "@/styles/Sign.module.css";
@@ -15,8 +15,12 @@ import { handleZodValidation } from "@/lib/ZodError";
 import userLoginDB from "@/lib/signin/userLoginDB";
 import GetUserID from "@/lib/signin/getUserID";
 import GetCookie from "@/lib/signin/getCookie";
+import { AuthContext } from "@/context/AuthContextProvider/AuthContext";
+import { SessionContext } from "@/context/SessionContextProvider/SessionContext";
 
 const Login: React.FC = () => {
+  const [isAuth, setIsAuth] = useContext(AuthContext);
+  const [isSession, setIsSession] = useContext(SessionContext);
   const router = useRouter();
 
   const [loginData, setLoginData] = React.useState<loginAuthType>({
@@ -56,11 +60,13 @@ const Login: React.FC = () => {
   const onClickSubmit = async (data: loginAuthType) => {
     const loginSuccess = await userLoginDB(data);
 
-    if (loginSuccess === false) {
+    if (loginSuccess.success === false) {
       resetPass();
     } else {
       const userID = await GetUserID(data);
       const sessionData = await GetCookie();
+      setIsSession(sessionData);
+      setIsAuth(true);
       resetLoginData();
       router.replace("/forums_ic");
     }
