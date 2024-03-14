@@ -12,12 +12,12 @@ export default async function userLoginDB(
   const cookieStore = cookies();
 
   const prisma = new PrismaClient();
-  const dbPassHash = await prisma.user.findFirst({
+  const dbPassHash = await prisma.user.findUnique({
     where: {
       username: login.username,
     },
   });
-  const matched = await bcrypt.compare(login.password, dbPassHash?.password);
+  const matched = await bcrypt.compare(login.password, dbPassHash?.passwordHash);
 
   if (matched) {
     cookieStore.set("userSession", nanoid(32), {
