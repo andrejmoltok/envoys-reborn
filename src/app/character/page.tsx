@@ -23,7 +23,7 @@ export default function Page() {
     race: "ember",
     rank: "Kezdő Játékos",
     serial: "",
-    gameStyle: "szelíd",
+    gameStyle: "jámbor",
   });
 
   const [abilityScore, setAbilityScore] = useState<AbilityScore>({
@@ -265,9 +265,9 @@ export default function Page() {
                         setPlayerData(e);
                       }}
                     >
-                      <option value="szelíd">Szelíd</option>
+                      <option value="jámbor">Jámbor</option>
+                      <option value="óvatos">Óvatos</option>
                       <option value="bátor">Bátor</option>
-                      <option value="vakmerő">Vakmerő</option>
                     </select>
                   </div>
                 </div>

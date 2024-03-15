@@ -21,26 +21,35 @@ model user {
 }
 
 model player {
-  id           String   @id @db.VarChar(16)
-  userID       String   @db.VarChar(16)
-  firstname    String   @db.VarChar(100)
-  lastname     String   @db.VarChar(100)
-  sex          String   @db.VarChar(100)
-  race         String   @db.VarChar(100)
-  rank         String   @db.VarChar(100)
-  serial       String   @db.VarChar(100)
-  gameStyle    String   @db.VarChar(100)
-  money        Int      @default(100) @db.UnsignedInt
-  level        Int      @default(1) @db.UnsignedInt
-  strength     Int      @default(0) @db.UnsignedInt
-  dexterity    Int      @default(0) @db.UnsignedInt
-  constitution Int      @default(0) @db.UnsignedInt
-  intelligence Int      @default(0) @db.UnsignedInt
-  wisdom       Int      @default(0) @db.UnsignedInt
-  charisma     Int      @default(0) @db.UnsignedInt
-  createdAt    DateTime @default(now()) @db.Timestamp(0)
-  updatedAt    DateTime @default(now()) @db.Timestamp(0)
-  user         user     @relation(fields: [userID], references: [id], onDelete: Cascade, map: "player_user_FK")
+  id               String   @id @db.VarChar(16)
+  userID           String   @db.VarChar(16)
+  firstname        String   @db.VarChar(100)
+  lastname         String   @db.VarChar(100)
+  sex              String   @db.VarChar(100)
+  race             String   @db.VarChar(100)
+  rank             String   @db.VarChar(100)
+  serial           String   @db.VarChar(100)
+  gameStyle        String   @db.VarChar(100)
+  money            Int      @default(100) @db.UnsignedInt
+  level            Int      @default(1) @db.UnsignedInt
+  strength         Int      @default(0) @db.UnsignedInt
+  dexterity        Int      @default(0) @db.UnsignedInt
+  constitution     Int      @default(0) @db.UnsignedInt
+  intelligence     Int      @default(0) @db.UnsignedInt
+  wisdom           Int      @default(0) @db.UnsignedInt
+  charisma         Int      @default(0) @db.UnsignedInt
+  outerDesc        String?  @db.LongText
+  innerDesc        String?  @db.LongText
+  background       String?  @db.LongText
+  notes            String?  @db.LongText
+  belief           String?  @db.VarChar(100)
+  events           String?  @db.LongText
+  backpack         String?  @db.LongText
+  backpackContents Int      @default(0) @db.UnsignedInt
+  backpackSlots    Int      @default(3) @db.UnsignedInt
+  createdAt        DateTime @default(now()) @db.Timestamp(0)
+  updatedAt        DateTime @default(now()) @db.Timestamp(0)
+  user             user     @relation(fields: [userID], references: [id], onDelete: Cascade, map: "player_user_FK")
 
   @@index([userID], map: "player_user_FK")
 }
