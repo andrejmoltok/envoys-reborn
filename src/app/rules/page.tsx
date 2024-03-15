@@ -37,11 +37,11 @@ function Rulebook() {
         router.push("/character");
       }
     })();
-  }, [isChecked, isAuth, agreedCheck, router]);
+  }, [isChecked, isAuth, router]);
 
   return (
     <>
-      {agreedCheck === false && isChecked === false ? (
+      {isAuth && agreedCheck === false && isChecked === false ? (
         <div>
           <input
             type="checkbox"
@@ -56,7 +56,7 @@ function Rulebook() {
           <label htmlFor="rules">Ezennel elfogadom a Játék Szabályzatát!</label>
         </div>
       ) : null}
-      {agreedCheck && !isChecked ? (
+      {isAuth && agreedCheck && !isChecked ? (
         <div>
           <input type="checkbox" id="rules" name="rules" disabled checked />
           <label htmlFor="rules">Ezennel elfogadom a Játék Szabályzatát!</label>

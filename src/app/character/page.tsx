@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import style from "@/styles/Layout.module.css";
@@ -10,6 +10,8 @@ import styles from "@/styles/Character.module.css";
 import { AbilityScore } from "@/lib/character/AbilityScore";
 import { Player } from "@/lib/character/Player";
 import SavePlayer from "@/lib/character/SavePlayer";
+
+import { InputChangeEvent } from "@/lib/character/InputChangeEvent";
 
 export default function Page() {
   const router = useRouter();
@@ -21,7 +23,7 @@ export default function Page() {
     race: "human",
     rank: "Kezdő Játékos",
     serial: "",
-    gameStyle: "",
+    gameStyle: "lightcore",
   });
 
   const [abilityScore, setAbilityScore] = useState<AbilityScore>({
@@ -33,7 +35,7 @@ export default function Page() {
     wisdom: 1,
   });
 
-  const setPlayerData = (event: ChangeEvent<HTMLSelectElement>) => {
+  const setPlayerData = (event: InputChangeEvent) => {
     const { name, value } = event.target;
     setPlayer((prev) => ({
       ...prev,
@@ -142,19 +144,16 @@ export default function Page() {
               <div className={styles.fields}>
                 <div className={styles.key}>
                   <div>
-                    <label htmlFor="fullname">Character Name:</label>
+                    <label htmlFor="fullname">Karakternév:</label>
                   </div>
                   <div>
-                    <label htmlFor="emailaddress">Email Address:</label>
+                    <label htmlFor="sex">Nem:</label>
                   </div>
                   <div>
-                    <label htmlFor="sex">Sex:</label>
+                    <label htmlFor="race">Faj:</label>
                   </div>
                   <div>
-                    <label htmlFor="race">Race select:</label>
-                  </div>
-                  <div>
-                    <label htmlFor="charisma">Charisma:</label>
+                    <label htmlFor="charisma">Karizma:</label>
                   </div>
                   <div>
                     <label htmlFor="constitution">Constitution:</label>
@@ -172,13 +171,33 @@ export default function Page() {
                     <label htmlFor="wisdom">Wisdom:</label>
                   </div>
                   <div>
-                    <label htmlFor="gameStyle">Game style:</label>
+                    <label htmlFor="gameStyle">Játékstílus:</label>
                   </div>
                 </div>
 
                 <div className={styles.value}>
-                  <div id="fullname">characterName</div>
-                  <div id="emailaddress">emailaddress</div>
+                  <div>
+                    <input
+                      type="text"
+                      id="firstname"
+                      name="firstname"
+                      value={player.firstname}
+                      onChange={(e) => setPlayerData(e)}
+                      autoComplete="on"
+                      placeholder="keresztnév"
+                    />
+
+                    <input
+                      type="text"
+                      id="lastname"
+                      name="lastname"
+                      value={player.lastname}
+                      onChange={(e) => setPlayerData(e)}
+                      autoComplete="on"
+                      placeholder="családnév"
+                    />
+                  </div>
+
                   <div>
                     <select
                       id="sex"
@@ -187,8 +206,8 @@ export default function Page() {
                         setPlayerData(e);
                       }}
                     >
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
+                      <option value="male">Férfi</option>
+                      <option value="female">Nő</option>
                     </select>
                   </div>
                   <div>
@@ -202,14 +221,14 @@ export default function Page() {
                           );
                       }}
                     >
-                      <option value="human">Human</option>
+                      <option value="human">Ember</option>
                       <option value="elf">Elf</option>
-                      <option value="dwarf">Dwarf</option>
-                      <option value="orc">Orc</option>
-                      <option value="giant">Giant</option>
-                      <option value="devil">Devil</option>
-                      <option value="gnome">Gnome</option>
-                      <option value="darkelf">Dark Elf</option>
+                      <option value="dwarf">Törpe</option>
+                      <option value="orc">Ork</option>
+                      <option value="giant">Óriás</option>
+                      <option value="devil">Ördög</option>
+                      <option value="gnome">Gnóm</option>
+                      <option value="darkelf">Sötételf</option>
                     </select>
                   </div>
                   <div>
@@ -246,9 +265,9 @@ export default function Page() {
                         setPlayerData(e);
                       }}
                     >
-                      <option value="lightcore">Lightcore</option>
-                      <option value="midcore">Midcore</option>
-                      <option value="hardcore">Hardcore</option>
+                      <option value="szelíd">Szelíd</option>
+                      <option value="bátor">Bátor</option>
+                      <option value="vakmerő">Vakmerő</option>
                     </select>
                   </div>
                 </div>

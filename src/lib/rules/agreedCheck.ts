@@ -28,7 +28,7 @@ export default async function AgreedCheck(): Promise<number | undefined> {
 
     return agreed?.agreed;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return 0;
   }
 }
