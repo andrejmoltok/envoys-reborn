@@ -19,11 +19,11 @@ export default function Page() {
   const [player, setPlayer] = useState<Player>({
     firstname: "",
     lastname: "",
-    sex: "male",
-    race: "human",
+    sex: "férfi",
+    race: "ember",
     rank: "Kezdő Játékos",
     serial: "",
-    gameStyle: "lightcore",
+    gameStyle: "szelíd",
   });
 
   const [abilityScore, setAbilityScore] = useState<AbilityScore>({
