@@ -228,8 +228,10 @@ export default function Nav() {
           {isAuth && (
             <>
               <div className={styles.navitem}>
-                <FontAwesomeIcon icon={faUser} style={{ color: "#252c36" }} />{" "}
-                Adatlap
+                <Link className={styles.link} href="/profile">
+                  <FontAwesomeIcon icon={faUser} style={{ color: "#252c36" }} />{" "}
+                  Adatlap
+                </Link>
               </div>
               <div
                 className={styles.navitem}
@@ -393,11 +395,13 @@ export default function Nav() {
               {isAuth && (
                 <>
                   <div className={styles.navitem}>
-                    <FontAwesomeIcon
-                      icon={faUser}
-                      style={{ color: "#252c36" }}
-                    />{" "}
-                    Adatlap
+                    <Link className={styles.link} href="/profile">
+                      <FontAwesomeIcon
+                        icon={faUser}
+                        style={{ color: "#252c36" }}
+                      />{" "}
+                      Adatlap
+                    </Link>
                   </div>
                   <div
                     className={styles.navitem}
@@ -512,11 +516,13 @@ export default function Nav() {
               {isAuth && (
                 <>
                   <div className={styles.navitem}>
-                    <FontAwesomeIcon
-                      icon={faUser}
-                      style={{ color: "#252c36" }}
-                    />{" "}
-                    Adatlap
+                    <Link className={styles.link} href="/profile">
+                      <FontAwesomeIcon
+                        icon={faUser}
+                        style={{ color: "#252c36" }}
+                      />{" "}
+                      Adatlap
+                    </Link>
                   </div>
                   <div
                     className={styles.navitem}

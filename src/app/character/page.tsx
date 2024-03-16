@@ -221,14 +221,14 @@ export default function Page() {
                           );
                       }}
                     >
-                      <option value="human">Ember</option>
-                      <option value="elf">Elf</option>
-                      <option value="dwarf">Törpe</option>
-                      <option value="orc">Ork</option>
-                      <option value="giant">Óriás</option>
-                      <option value="devil">Ördög</option>
-                      <option value="gnome">Gnóm</option>
-                      <option value="darkelf">Sötételf</option>
+                      <option value="ember">Ember</option>
+                      <option value="tünde">Tünde</option>
+                      <option value="törpe">Törpe</option>
+                      <option value="ork">Ork</option>
+                      <option value="óriás">Óriás</option>
+                      <option value="ördög">Ördög</option>
+                      <option value="gnóm">Gnóm</option>
+                      <option value="sötéttünde">Sötéttünde</option>
                     </select>
                   </div>
                   <div>
