@@ -97,7 +97,8 @@ const Login: React.FC = () => {
               value={loginData.username}
               onChange={(e) => handleInputChange(e)}
               autoComplete="on"
-              placeholder="Gipsz Jakab"
+              placeholder="Felhasználónév"
+              required
             />
 
             <input
@@ -107,7 +108,8 @@ const Login: React.FC = () => {
               value={loginData.password}
               onChange={(e) => handleInputChange(e)}
               autoComplete="on"
-              placeholder="********"
+              placeholder="Jelszó"
+              required
             />
 
             <input
@@ -117,7 +119,8 @@ const Login: React.FC = () => {
               value={loginData.confirm}
               onChange={(e) => handleInputChange(e)}
               autoComplete="on"
-              placeholder="********"
+              placeholder="Jelszó Ismét"
+              required
             />
 
             <button type="submit" onClick={() => schemaParse(loginData)}>

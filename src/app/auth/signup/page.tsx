@@ -81,7 +81,8 @@ const SignUp: React.FC = () => {
             value={signUpData.username}
             onChange={(e) => handleInputChange(e)}
             autoComplete="on"
-            placeholder="Gipsz Jakab"
+            placeholder="Felhasználónév"
+            aria-required
           />
 
           <input
@@ -91,7 +92,8 @@ const SignUp: React.FC = () => {
             value={signUpData.email}
             onChange={(e) => handleInputChange(e)}
             autoComplete="on"
-            placeholder="gipszjakab@gmail.com"
+            placeholder="Emailcím"
+            aria-required
           />
 
           <input
@@ -101,7 +103,8 @@ const SignUp: React.FC = () => {
             value={signUpData.password}
             onChange={(e) => handleInputChange(e)}
             autoComplete="on"
-            placeholder="********"
+            placeholder="Jelszó"
+            aria-required
           />
 
           <input
@@ -111,7 +114,8 @@ const SignUp: React.FC = () => {
             value={signUpData.confirm}
             onChange={(e) => handleInputChange(e)}
             autoComplete="on"
-            placeholder="********"
+            placeholder="Jelszó Ismét"
+            aria-required
           />
 
           <button type="submit" onClick={() => schemaParse(signUpData)}>
