@@ -18,8 +18,10 @@ import localFont from "next/font/local";
 import Nav from "@/components/Nav";
 import Pole from "@/components/Pole";
 import Footer from "@/components/Footer";
+
 import AuthProvider from "@/context/AuthContextProvider/AuthProvider";
 import SessionProvider from "@/context/SessionContextProvider/SessionProvider";
+import WarrantClientProvider from "./WarrantClientProvider";
 
 export const metadata: Metadata = {
   title: "Küldöttek: Újjászületés",
@@ -43,44 +45,46 @@ export default function RootLayout({
     <React.StrictMode>
       <SessionProvider>
         <AuthProvider>
-          <html lang="en">
-            <body className={medievalSharp.className}>
-              <header>
-                <div className={styles.border}>
-                  <div className={styles.newland}>
-                    <div className={styles.blur}>
-                      <div className={styles.title}>Küldöttek</div>
-                      <div className={styles.subtitle}>Újjászületés</div>
+          <WarrantClientProvider>
+            <html lang="en">
+              <body className={medievalSharp.className}>
+                <header>
+                  <div className={styles.border}>
+                    <div className={styles.newland}>
+                      <div className={styles.blur}>
+                        <div className={styles.title}>Küldöttek</div>
+                        <div className={styles.subtitle}>Újjászületés</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </header>
+                </header>
 
-              <Pole />
+                <Pole />
 
-              <nav>
-                <div className={styles.border}>
-                  <div className={fill.fill}>
-                    <Nav />
+                <nav>
+                  <div className={styles.border}>
+                    <div className={fill.fill}>
+                      <Nav />
+                    </div>
                   </div>
-                </div>
-              </nav>
+                </nav>
 
-              <Pole />
+                <Pole />
 
-              <main>{children}</main>
+                <main>{children}</main>
 
-              <Pole />
+                <Pole />
 
-              <footer>
-                <div className={styles.border}>
-                  <div className={fill.fill}>
-                    <Footer />
+                <footer>
+                  <div className={styles.border}>
+                    <div className={fill.fill}>
+                      <Footer />
+                    </div>
                   </div>
-                </div>
-              </footer>
-            </body>
-          </html>
+                </footer>
+              </body>
+            </html>
+          </WarrantClientProvider>
         </AuthProvider>
       </SessionProvider>
     </React.StrictMode>
