@@ -11,12 +11,28 @@ export default function IC() {
 
   return (
     <>
+      {isAuth && (
+        <>
+          <div className={styles.border}>
+            <div className={fill.fill}>
+              <textarea cols={50} rows={10}></textarea>
+            </div>
+          </div>
+          <Pole />
+        </>
+      )}
+
       <div className={styles.border}>
         <div className={fill.fill}>
-          IC Forums
-          <div>Logged IN --- {isAuth.toString()}</div>
-          {/* <div>userID --- {userID}</div>
-          <div>sessionData --- {sessionData}</div> */}
+          <div>Helyszinfa</div>
+        </div>
+      </div>
+
+      <Pole />
+
+      <div className={styles.border}>
+        <div className={fill.fill}>
+          <div>Reagok</div>
         </div>
       </div>
     </>

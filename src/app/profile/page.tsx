@@ -32,7 +32,6 @@ export default function Profile() {
     <>
       <div className={styles.border}>
         <div className={fill.fill}>
-          Profile
           {isAuth && (
             <>
               <div>Firstname {(player as Player)?.firstname}</div>
