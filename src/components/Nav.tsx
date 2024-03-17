@@ -24,7 +24,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import UpdateSession from "@/lib/logout/updateSession";
-import SessionData from "@/actions/Server/sessionData";
+import SessionData from "@/lib/session/sessionData";
 import { AuthContext } from "@/context/AuthContextProvider/AuthContext";
 import { SessionContext } from "@/context/SessionContextProvider/SessionContext";
 
