@@ -1,7 +1,7 @@
 "use client";
 
 import React, { ChangeEvent, useContext } from "react";
-import { useRouter, redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import styles from "@/styles/Sign.module.css";
 import filling from "@/styles/Fill.module.css";
@@ -13,7 +13,7 @@ import { ValidationError } from "@/lib/ZodError";
 import { handleZodValidation } from "@/lib/ZodError";
 
 import userLoginDB from "@/lib/signin/userLoginDB";
-import GetUserID from "@/lib/signin/getUserID";
+// import GetUserID from "@/lib/signin/getUserID";
 import GetCookie from "@/lib/signin/getCookie";
 import { AuthContext } from "@/context/AuthContextProvider/AuthContext";
 import { SessionContext } from "@/context/SessionContextProvider/SessionContext";
@@ -22,6 +22,8 @@ const Login: React.FC = () => {
   const [isAuth, setIsAuth] = useContext(AuthContext);
   const [isSession, setIsSession] = useContext(SessionContext);
   const router = useRouter();
+
+  // const [emailVerifyError, setEmailVerifyError] = React.useState<string>("");
 
   const [loginData, setLoginData] = React.useState<loginAuthType>({
     username: "",
@@ -61,9 +63,10 @@ const Login: React.FC = () => {
     const loginSuccess = await userLoginDB(data);
 
     if (loginSuccess.success === false) {
+      // setEmailVerifyError(loginSuccess.error as string);
       resetPass();
     } else {
-      const userID = await GetUserID(data);
+      // const userID = await GetUserID(data);
       const sessionData = await GetCookie();
       setIsSession(sessionData);
       setIsAuth(true);
@@ -129,18 +132,31 @@ const Login: React.FC = () => {
 
             <div className={styles.error}>
               {errors && errors.username && (
-                <div style={{ color: "red" }}>
+                <div style={{ color: "black" }}>
                   Felhasználónév - {errors.username}
                 </div>
               )}
               {errors && errors.password && (
-                <div style={{ color: "red" }}>Jelszó - {errors.password}</div>
+                <div style={{ color: "black" }}>Jelszó - {errors.password}</div>
               )}
               {errors && errors.confirm && (
-                <div style={{ color: "red" }}>
+                <div style={{ color: "black" }}>
                   Jelszó ismét - {errors.confirm}
                 </div>
               )}
+              {/* {emailVerifyError && (
+                <div
+                  style={{
+                    color: "black",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <span>{emailVerifyError.split("még")[0]}</span>
+                  <span>{emailVerifyError.split("még")[1]}</span>
+                </div>
+              )} */}
             </div>
           </div>
         </div>

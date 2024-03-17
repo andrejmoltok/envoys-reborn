@@ -16,6 +16,7 @@ model user {
   agreed        Int       @default(0) @db.UnsignedTinyInt
   createdAt     DateTime  @default(now()) @db.Timestamp(0)
   updatedAt     DateTime  @default(now()) @db.Timestamp(0)
+  gallery       gallery[]
   player        player[]
   session       session[]
 }
@@ -64,4 +65,14 @@ model session {
   user        user      @relation(fields: [userID], references: [id], onDelete: Cascade, map: "sessionData_user_FK")
 
   @@index([userID], map: "session_user_FK")
+}
+
+model gallery {
+  id        String   @id @db.VarChar(16)
+  userID    String   @db.VarChar(16)
+  path      String   @db.VarChar(500)
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  user      user     @relation(fields: [userID], references: [id], onDelete: Cascade, map: "gallery_user_FK")
+
+  @@index([userID], map: "gallery_user_FK")
 }

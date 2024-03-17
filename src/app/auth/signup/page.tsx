@@ -11,7 +11,7 @@
 
 import React from "react";
 
-import userCreateDB from "@/lib/signup/userCreateDB";
+import createDB from "@/lib/signup/createDB";
 
 import styles from "@/styles/Sign.module.css";
 import filling from "@/styles/Fill.module.css";
@@ -54,7 +54,7 @@ const SignUp: React.FC = () => {
   };
 
   const onClickSubmit = async (data: signUpAuthType) => {
-    userCreateDB(data);
+    createDB(data);
   };
 
   const schemaParse = (data: signUpAuthType) => {

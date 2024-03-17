@@ -35,6 +35,15 @@ export default async function userLoginDB(
       return { success: false, error: "A megadott jelszó hibás" };
     }
 
+    // APPLY THIS AFTER DOMAIN REGISTRATION AND LOOPS.CO SETUP
+    //
+    // if (findUserByUsername.emailVerified === false) {
+    //   return {
+    //     success: false,
+    //     error: "Az felhasználóhoz tartozó emailcím még nem lett ellenőrizve",
+    //   };
+    // }
+
     const sessionTokenByUser = {
       userID: findUserByUsername.id,
       email: findUserByUsername.email,

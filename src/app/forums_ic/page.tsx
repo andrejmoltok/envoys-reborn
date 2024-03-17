@@ -15,7 +15,11 @@ export default function IC() {
         <>
           <div className={styles.border}>
             <div className={fill.fill}>
-              <textarea cols={50} rows={10}></textarea>
+              <textarea
+                cols={50}
+                rows={10}
+                style={{ backgroundColor: "gainsboro" }}
+              ></textarea>
             </div>
           </div>
           <Pole />

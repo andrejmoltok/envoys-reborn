@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useContext } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import styles from "@/styles/Layout.module.css";
 import fill from "@/styles/Fill.module.css";
@@ -37,6 +38,7 @@ export default function Profile() {
               <div>Firstname {(player as Player)?.firstname}</div>
               <div>Character Strength {(player as AbilityScore)?.strength}</div>
               <div>BackPack Slots {(player as Description)?.backpackSlots}</div>
+              <Link href="/gallery">Galéria</Link>
             </>
           )}
         </div>

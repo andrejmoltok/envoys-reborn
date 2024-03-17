@@ -5,17 +5,26 @@ import { prisma } from "@/lib/prisma/PrismaClient";
 import { nanoid } from "nanoid";
 const bcrypt = require("bcrypt");
 
-export default async function userCreateDB(data: signUpAuthType) {
+export default async function createDB(data: signUpAuthType) {
   const hash = await bcrypt.hash(data.password, 10);
+  const user = nanoid(16);
 
   try {
     await prisma.user.create({
       data: {
-        id: nanoid(16),
+        id: user,
         username: data.username,
         email: data.email,
         emailVerified: false,
         passwordHash: hash,
+      },
+    });
+
+    await prisma.gallery.create({
+      data: {
+        id: nanoid(16),
+        userID: user,
+        path: "/base/default.jpg",
       },
     });
   } catch (error) {

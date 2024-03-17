@@ -233,20 +233,22 @@ export default function Nav() {
                   Adatlap
                 </Link>
               </div>
-              <div
-                className={styles.navitem}
-                onClick={async () => {
-                  await UpdateSession(unseal.userID);
-                  setIsAuth(false);
-                  setIsSession("");
-                  router.push("/");
-                }}
-              >
-                <FontAwesomeIcon
-                  icon={faArrowRightFromBracket}
-                  style={{ color: "#252c36" }}
-                />{" "}
-                Kilépés
+              <div className={styles.navitem}>
+                <Link
+                  className={styles.link}
+                  href="/"
+                  onClick={async () => {
+                    await UpdateSession(unseal.userID);
+                    setIsAuth(false);
+                    setIsSession("");
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={faArrowRightFromBracket}
+                    style={{ color: "#252c36" }}
+                  />{" "}
+                  Kilépés
+                </Link>
               </div>
             </>
           )}
@@ -395,7 +397,11 @@ export default function Nav() {
               {isAuth && (
                 <>
                   <div className={styles.navitem}>
-                    <Link className={styles.link} href="/profile">
+                    <Link
+                      className={styles.link}
+                      href="/profile"
+                      onClick={() => setIsOpen(false)}
+                    >
                       <FontAwesomeIcon
                         icon={faUser}
                         style={{ color: "#252c36" }}
@@ -403,20 +409,23 @@ export default function Nav() {
                       Adatlap
                     </Link>
                   </div>
-                  <div
-                    className={styles.navitem}
-                    onClick={async () => {
-                      await UpdateSession(unseal.userID);
-                      setIsAuth(false);
-                      setIsSession("");
-                      router.push("/");
-                    }}
-                  >
-                    <FontAwesomeIcon
-                      icon={faArrowRightFromBracket}
-                      style={{ color: "#252c36" }}
-                    />{" "}
-                    Kilépés
+                  <div className={styles.navitem}>
+                    <Link
+                      className={styles.link}
+                      href="/"
+                      onClick={async () => {
+                        setIsOpen(false);
+                        await UpdateSession(unseal.userID);
+                        setIsAuth(false);
+                        setIsSession("");
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        icon={faArrowRightFromBracket}
+                        style={{ color: "#252c36" }}
+                      />{" "}
+                      Kilépés
+                    </Link>
                   </div>
                 </>
               )}
@@ -516,7 +525,11 @@ export default function Nav() {
               {isAuth && (
                 <>
                   <div className={styles.navitem}>
-                    <Link className={styles.link} href="/profile">
+                    <Link
+                      className={styles.link}
+                      href="/profile"
+                      onClick={() => setIsOpen(false)}
+                    >
                       <FontAwesomeIcon
                         icon={faUser}
                         style={{ color: "#252c36" }}
@@ -524,20 +537,23 @@ export default function Nav() {
                       Adatlap
                     </Link>
                   </div>
-                  <div
-                    className={styles.navitem}
-                    onClick={async () => {
-                      await UpdateSession(unseal.userID);
-                      setIsAuth(false);
-                      setIsSession("");
-                      router.push("/");
-                    }}
-                  >
-                    <FontAwesomeIcon
-                      icon={faArrowRightFromBracket}
-                      style={{ color: "#252c36" }}
-                    />{" "}
-                    Kilépés
+                  <div className={styles.navitem}>
+                    <Link
+                      className={styles.link}
+                      href="/"
+                      onClick={async () => {
+                        setIsOpen(false);
+                        await UpdateSession(unseal.userID);
+                        setIsAuth(false);
+                        setIsSession("");
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        icon={faArrowRightFromBracket}
+                        style={{ color: "#252c36" }}
+                      />{" "}
+                      Kilépés
+                    </Link>
                   </div>
                 </>
               )}
