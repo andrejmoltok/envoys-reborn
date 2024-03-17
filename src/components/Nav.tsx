@@ -37,30 +37,14 @@ export default function Nav() {
   // session context
   const [isSession, setIsSession] = useContext(SessionContext);
 
-  const [unseal, setUnseal] = useState<{
-    userID: string;
-    email: string;
-    userIP: string;
-    randomNano: string;
-  }>({
-    userID: "",
-    email: "",
-    userIP: "",
-    randomNano: "",
-  });
+  const [unseal, setUnseal] = useState<string>("");
 
   // TODO replace this useEffect with a Tanstack useQuery()
   useEffect(() => {
     async function fetchData() {
       const unsealed = await SessionData();
 
-      setUnseal((prevSeal) => ({
-        ...prevSeal,
-        userID: unsealed.userID,
-        email: unsealed.email,
-        userIP: unsealed.userIP,
-        randomNano: unsealed.randomNano,
-      }));
+      setUnseal(unsealed);
     }
     if (isSession !== "" && isAuth === true) {
       fetchData();
@@ -238,7 +222,7 @@ export default function Nav() {
                   className={styles.link}
                   href="/"
                   onClick={async () => {
-                    await UpdateSession(unseal.userID);
+                    await UpdateSession(unseal);
                     setIsAuth(false);
                     setIsSession("");
                   }}
@@ -415,7 +399,7 @@ export default function Nav() {
                       href="/"
                       onClick={async () => {
                         setIsOpen(false);
-                        await UpdateSession(unseal.userID);
+                        await UpdateSession(unseal);
                         setIsAuth(false);
                         setIsSession("");
                       }}
@@ -543,7 +527,7 @@ export default function Nav() {
                       href="/"
                       onClick={async () => {
                         setIsOpen(false);
-                        await UpdateSession(unseal.userID);
+                        await UpdateSession(unseal);
                         setIsAuth(false);
                         setIsSession("");
                       }}
