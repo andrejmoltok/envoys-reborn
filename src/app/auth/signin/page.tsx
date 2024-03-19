@@ -23,7 +23,7 @@ const Login: React.FC = () => {
   const [isSession, setIsSession] = useContext(SessionContext);
   const router = useRouter();
 
-  // const [emailVerifyError, setEmailVerifyError] = React.useState<string>("");
+  const [loginSuccessError, setLoginSuccessError] = React.useState<string>("");
 
   const [loginData, setLoginData] = React.useState<loginAuthType>({
     username: "",
@@ -63,7 +63,7 @@ const Login: React.FC = () => {
     const loginSuccess = await userLoginDB(data);
 
     if (loginSuccess.success === false) {
-      // setEmailVerifyError(loginSuccess.error as string);
+      setLoginSuccessError(loginSuccess.error as string);
       resetPass();
     } else {
       // const userID = await GetUserID(data);
@@ -144,19 +144,9 @@ const Login: React.FC = () => {
                   Jelszó ismét - {errors.confirm}
                 </div>
               )}
-              {/* {emailVerifyError && (
-                <div
-                  style={{
-                    color: "black",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                >
-                  <span>{emailVerifyError.split("még")[0]}</span>
-                  <span>{emailVerifyError.split("még")[1]}</span>
-                </div>
-              )} */}
+              {loginSuccessError && (
+                <div style={{ color: "black" }}>{loginSuccessError}</div>
+              )}
             </div>
           </div>
         </div>

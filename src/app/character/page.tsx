@@ -45,7 +45,7 @@ export default function Page() {
 
   const setAbilityScoresByRace = (race: string) => {
     switch (race) {
-      case "human":
+      case "ember":
         return setAbilityScore({
           charisma: 1,
           intelligence: 1,
@@ -54,7 +54,7 @@ export default function Page() {
           strength: 1,
           dexterity: 1,
         });
-      case "elf":
+      case "tünde":
         return setAbilityScore({
           charisma: 0,
           intelligence: 0,
@@ -63,7 +63,7 @@ export default function Page() {
           strength: 0,
           dexterity: 2,
         });
-      case "dwarf":
+      case "törpe":
         return setAbilityScore({
           charisma: 0,
           intelligence: 0,
@@ -72,7 +72,7 @@ export default function Page() {
           strength: 2,
           dexterity: 0,
         });
-      case "orc":
+      case "ork":
         return setAbilityScore({
           charisma: 0,
           intelligence: 0,
@@ -81,7 +81,7 @@ export default function Page() {
           strength: 2,
           dexterity: 0,
         });
-      case "giant":
+      case "óriás":
         return setAbilityScore({
           charisma: 0,
           intelligence: 0,
@@ -90,7 +90,7 @@ export default function Page() {
           strength: 2,
           dexterity: 0,
         });
-      case "devil":
+      case "ördög":
         return setAbilityScore({
           charisma: 2,
           intelligence: 1,
@@ -99,7 +99,7 @@ export default function Page() {
           strength: 0,
           dexterity: 0,
         });
-      case "gnome":
+      case "gnóm":
         return setAbilityScore({
           charisma: 0,
           intelligence: 2,
@@ -108,7 +108,7 @@ export default function Page() {
           strength: 0,
           dexterity: 1,
         });
-      case "darkelf":
+      case "sötéttünde":
         return setAbilityScore({
           charisma: 1,
           intelligence: 0,

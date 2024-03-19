@@ -23,7 +23,10 @@ export default async function userLoginDB(
     });
 
     if (!findUserByUsername) {
-      return { success: false, error: "A megadott felhasználónév hibás" };
+      return {
+        success: false,
+        error: "A megadott felhasználónév hibás vagy nem létezik",
+      };
     }
 
     const passMatchUser = await bcrypt.compare(
