@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 
 import styles from "@/styles/Layout.module.css";
@@ -14,13 +14,13 @@ import AgreedCheck from "@/lib/rules/agreedCheck";
 function Rulebook() {
   const router = useRouter();
 
-  const [isAuth] = useContext(AuthContext);
+  const [isAuth] = React.useContext(AuthContext);
 
-  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [isChecked, setIsChecked] = React.useState<boolean>(false);
 
-  const [agreedCheck, setAgreedCheck] = useState<boolean>(false);
+  const [agreedCheck, setAgreedCheck] = React.useState<boolean>(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     (async () => {
       const agreed = await AgreedCheck();
       if (agreed === 1) {
@@ -31,7 +31,7 @@ function Rulebook() {
     })();
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     (async () => {
       if (isAuth && isChecked) {
         router.push("/character");

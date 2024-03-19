@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { AuthContext } from "./AuthContext";
 
 export default function AuthProvider({
@@ -8,7 +8,7 @@ export default function AuthProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [isAuth, setIsAuth] = useState<boolean>(false);
+  const [isAuth, setIsAuth] = React.useState<boolean>(false);
 
   return (
     <AuthContext.Provider value={[isAuth, setIsAuth]}>

@@ -1,10 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
-import Iron from "@hapi/iron";
 
 import styles from "@/styles/Nav.module.css"; // general styling
 import style from "@/styles/Layout.module.css"; // for dropdown menu border
@@ -18,7 +16,7 @@ import {
   faUserPlus,
   faPersonCirclePlus,
   faPersonCircleMinus,
-  faMonument,
+  // faMonument,
   faUser,
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
@@ -32,15 +30,15 @@ export default function Nav() {
   const router = useRouter();
 
   // authentication context
-  const [isAuth, setIsAuth] = useContext(AuthContext);
+  const [isAuth, setIsAuth] = React.useContext(AuthContext);
 
   // session context
-  const [isSession, setIsSession] = useContext(SessionContext);
+  const [isSession, setIsSession] = React.useContext(SessionContext);
 
-  const [unseal, setUnseal] = useState<string>("");
+  const [unseal, setUnseal] = React.useState<string>("");
 
   // TODO replace this useEffect with a Tanstack useQuery()
-  useEffect(() => {
+  React.useEffect(() => {
     async function fetchData() {
       const unsealed = await SessionData();
 

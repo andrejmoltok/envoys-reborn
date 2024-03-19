@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, useContext } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 
 import styles from "@/styles/Sign.module.css";
@@ -19,8 +19,8 @@ import { AuthContext } from "@/context/AuthContextProvider/AuthContext";
 import { SessionContext } from "@/context/SessionContextProvider/SessionContext";
 
 const Login: React.FC = () => {
-  const [isAuth, setIsAuth] = useContext(AuthContext);
-  const [isSession, setIsSession] = useContext(SessionContext);
+  const [isAuth, setIsAuth] = React.useContext(AuthContext);
+  const [isSession, setIsSession] = React.useContext(SessionContext);
   const router = useRouter();
 
   const [loginSuccessError, setLoginSuccessError] = React.useState<string>("");
@@ -51,7 +51,7 @@ const Login: React.FC = () => {
     });
   };
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setLoginData((prevData) => ({
       ...prevData,

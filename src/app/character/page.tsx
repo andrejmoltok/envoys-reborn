@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 
 import style from "@/styles/Layout.module.css";
@@ -16,7 +16,7 @@ import { InputChangeEvent } from "@/lib/character/InputChangeEvent";
 export default function Page() {
   const router = useRouter();
 
-  const [player, setPlayer] = useState<Player>({
+  const [player, setPlayer] = React.useState<Player>({
     firstname: "",
     lastname: "",
     sex: "férfi",
@@ -26,7 +26,7 @@ export default function Page() {
     gameStyle: "jámbor",
   });
 
-  const [abilityScore, setAbilityScore] = useState<AbilityScore>({
+  const [abilityScore, setAbilityScore] = React.useState<AbilityScore>({
     charisma: 1,
     constitution: 1,
     dexterity: 1,

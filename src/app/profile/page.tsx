@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -17,10 +17,10 @@ import { Description } from "@/lib/character/Description";
 import { AuthContext } from "@/context/AuthContextProvider/AuthContext";
 
 export default function Profile() {
-  const [isAuth] = useContext(AuthContext);
-  const [player, setPlayer] = useState<CharacterUnion | null>();
+  const [isAuth] = React.useContext(AuthContext);
+  const [player, setPlayer] = React.useState<CharacterUnion | null>();
 
-  useEffect(() => {
+  React.useEffect(() => {
     async function fetchPlayerData() {
       const profileData = await GetProfile();
       setPlayer(profileData);

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { redirect } from "next/navigation";
 import { IKImage } from "imagekitio-react";
 
@@ -10,10 +10,10 @@ import { AuthContext } from "@/context/AuthContextProvider/AuthContext";
 import GetAvatar from "@/lib/gallery/getAvatar";
 
 export default function Page() {
-  const [isAuth] = useContext(AuthContext);
-  const [path, setPath] = useState<string>("");
+  const [isAuth] = React.useContext(AuthContext);
+  const [path, setPath] = React.useState<string>("");
 
-  useEffect(() => {
+  React.useEffect(() => {
     async function fetchAvatar() {
       const avatarPath = await GetAvatar();
       setPath(avatarPath as string);

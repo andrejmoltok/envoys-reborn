@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { SessionContext } from "./SessionContext";
 
 export default function SessionProvider({
@@ -8,7 +8,7 @@ export default function SessionProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [isSession, setIsSession] = useState<string>("");
+  const [isSession, setIsSession] = React.useState<string>("");
 
   return (
     <SessionContext.Provider value={[isSession, setIsSession]}>
