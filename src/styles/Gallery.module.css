@@ -1,0 +1,21 @@
+.imageGallery {
+  display: flex;
+}
+
+.imageWrapper {
+  position: relative;
+  margin-right: 10px;
+}
+
+.selector {
+  width: 150px;
+  height: auto;
+  border: 5px solid transparent;
+  border-image: linear-gradient(
+    to bottom right,
+    rgba(0, 0, 0, 1),
+    transparent,
+    rgba(0, 0, 0, 1)
+  );
+  border-image-slice: 30;
+}

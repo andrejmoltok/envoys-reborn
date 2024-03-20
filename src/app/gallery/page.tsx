@@ -2,26 +2,31 @@
 
 import React from "react";
 import { redirect } from "next/navigation";
-import { IKImage } from "imagekitio-react";
+import { IKImage, IKUpload } from "imagekitio-react";
 
 import styles from "@/styles/Layout.module.css";
 import fill from "@/styles/Fill.module.css";
+import gallery from "@/styles/Gallery.module.css";
+
 import { AuthContext } from "@/context/AuthContextProvider/AuthContext";
-import GetAvatar from "@/lib/gallery/getAvatar";
+
+import GetAvatars from "@/lib/gallery/getAvatars";
 
 export default function Page() {
   const [isAuth] = React.useContext(AuthContext);
-  const [path, setPath] = React.useState<string>("");
+  const [paths, setPaths] =
+    React.useState<
+      { id: string; userID: string; path: string; createdAt: Date }[]
+    >();
 
   React.useEffect(() => {
     async function fetchAvatar() {
-      const avatarPath = await GetAvatar();
-      setPath(avatarPath as string);
-      console.log(avatarPath);
+      const avatarPaths = await GetAvatars();
+      setPaths(avatarPaths);
     }
 
     fetchAvatar();
-  }, [isAuth, path]);
+  }, [isAuth]);
 
   return (
     <>
@@ -29,14 +34,20 @@ export default function Page() {
         <>
           <div className={styles.border}>
             <div className={fill.fill}>
-              {path && path !== "" ? (
-                <IKImage
-                  path={path}
-                  lqip={{ active: true }}
-                  width={150}
-                  height={270}
-                />
-              ) : null}
+              <div className={gallery.imageGallery}>
+                {paths && paths !== undefined
+                  ? paths.map((v, i) => (
+                      <div key={i} className={gallery.imageWrapper}>
+                        <IKImage
+                          className={gallery.selector}
+                          path={v.path}
+                          lqip={{ active: true }}
+                          width={150}
+                        />
+                      </div>
+                    ))
+                  : null}
+              </div>
             </div>
           </div>
         </>

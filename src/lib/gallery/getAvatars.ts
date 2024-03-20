@@ -6,7 +6,9 @@ import { cookies } from "next/headers";
 import { UnsealObject } from "@/lib/unsealed";
 import { AvatarPath } from "./avatarPath";
 
-export default async function GetAvatar(): Promise<string | null> {
+export default async function GetAvatars(): Promise<
+  { id: string; userID: string; path: string; createdAt: Date }[] | undefined
+> {
   try {
     const cookieStore = cookies();
 
@@ -27,8 +29,8 @@ export default async function GetAvatar(): Promise<string | null> {
       ],
     });
 
-    return avatarPath[0].path as string;
+    return avatarPath;
   } catch (error) {
-    return "Path could not be retrieved";
+    return [];
   }
 }

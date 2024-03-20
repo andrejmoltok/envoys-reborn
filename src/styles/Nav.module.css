@@ -11,11 +11,11 @@
 }
 
 .navitem {
-  font-size: 1.125rem;
+  font-size: 0.9rem;
   cursor: pointer;
   background-image: url("/navbox.jpg");
   background-size: 100% 100%;
-  width: 185px;
+  width: 165px;
   height: 55px;
   display: flex;
   flex-direction: row;

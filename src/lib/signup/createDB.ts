@@ -27,6 +27,17 @@ export default async function createDB(data: signUpAuthType) {
         path: "/base/default.jpg",
       },
     });
+
+    await fetch("https://api.imagekit.io/v1/folder/", {
+      method: "POST",
+      headers: {
+        Authorization: btoa(`${process.env.IK_PRIVATE_KEY}:` as string),
+      },
+      body: JSON.stringify({
+        folderName: `${user}`,
+        parentFolderPath: "/",
+      }),
+    });
   } catch (error) {
     //TODO send notification with error.message to Admin UI
     console.error(error);
