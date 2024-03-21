@@ -18,6 +18,7 @@ export default function Page() {
     React.useState<
       { id: string; userID: string; path: string; createdAt: Date }[]
     >();
+  const [selectedIndex, setSelectedIndex] = React.useState<number>(0);
 
   React.useEffect(() => {
     async function fetchAvatar() {
@@ -35,11 +36,14 @@ export default function Page() {
           <div className={styles.border}>
             <div className={fill.fill}>
               <div className={gallery.imageGallery}>
-                {paths && paths !== undefined
+                {paths && paths.length > 0
                   ? paths.map((v, i) => (
                       <div key={i} className={gallery.imageWrapper}>
                         <IKImage
-                          className={gallery.selector}
+                          className={
+                            i === selectedIndex ? gallery.selector : ""
+                          }
+                          onClick={() => setSelectedIndex(i)}
                           path={v.path}
                           lqip={{ active: true }}
                           width={150}
