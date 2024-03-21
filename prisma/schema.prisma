@@ -72,6 +72,7 @@ model gallery {
   id        String   @id @db.VarChar(16)
   userID    String   @db.VarChar(16)
   path      String   @db.VarChar(500)
+  selected  Boolean  @default(false)
   createdAt DateTime @default(now()) @db.Timestamp(0)
   user      user     @relation(fields: [userID], references: [id], onDelete: Cascade, map: "gallery_user_FK")
 
