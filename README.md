@@ -8,3 +8,4 @@ made with Next.js App Router
 2. NextJS
 3. MySQL
 4. Custom Authentication
+5. CASL

@@ -23,7 +23,7 @@ function Rulebook() {
   React.useEffect(() => {
     (async () => {
       const agreed = await AgreedCheck();
-      if (agreed === 1) {
+      if (agreed === true) {
         setAgreedCheck(true);
       } else {
         setAgreedCheck(false);

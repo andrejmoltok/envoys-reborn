@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import Iron from "@hapi/iron";
 import { UnsealObject } from "@/lib/unsealed";
 
-export default async function AgreedCheck(): Promise<number | undefined> {
+export default async function AgreedCheck(): Promise<boolean | null> {
   try {
     const cookieStore = cookies();
 
@@ -24,11 +24,9 @@ export default async function AgreedCheck(): Promise<number | undefined> {
       },
     });
 
-    await prisma.$disconnect();
-
-    return agreed?.agreed;
+    return agreed?.agreed as boolean;
   } catch (error) {
     // console.log(error);
-    return 0;
+    return false;
   }
 }

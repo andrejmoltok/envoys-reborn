@@ -17,6 +17,7 @@ export default async function createDB(data: signUpAuthType) {
         email: data.email,
         emailVerified: false,
         passwordHash: hash,
+        role: "user",
       },
     });
 
@@ -25,19 +26,20 @@ export default async function createDB(data: signUpAuthType) {
         id: nanoid(16),
         userID: user,
         path: "/base/default.jpg",
+        selected: true,
       },
     });
 
-    await fetch("https://api.imagekit.io/v1/folder/", {
-      method: "POST",
-      headers: {
-        Authorization: btoa(`${process.env.IK_PRIVATE_KEY}:` as string),
-      },
-      body: JSON.stringify({
-        folderName: `${user}`,
-        parentFolderPath: "/",
-      }),
-    });
+    // await fetch("https://api.imagekit.io/v1/folder/", {
+    //   method: "POST",
+    //   headers: {
+    //     Authorization: btoa(`${process.env.IK_PRIVATE_KEY}` as string) + ":",
+    //   },
+    //   body: JSON.stringify({
+    //     folderName: `${user}`,
+    //     parentFolderPath: "/",
+    //   }),
+    // });
   } catch (error) {
     //TODO send notification with error.message to Admin UI
     console.error(error);

@@ -14,7 +14,7 @@ model user {
   emailVerified Boolean
   passwordHash  String    @db.VarChar(500)
   role          String    @db.VarChar(30)
-  agreed        Int       @default(0) @db.UnsignedTinyInt
+  agreed        Boolean   @default(false)
   createdAt     DateTime  @default(now()) @db.Timestamp(0)
   updatedAt     DateTime  @default(now()) @db.Timestamp(0)
   gallery       gallery[]
