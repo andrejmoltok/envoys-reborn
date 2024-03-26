@@ -17,7 +17,7 @@ model user {
   agreed        Boolean   @default(false)
   createdAt     DateTime  @default(now()) @db.Timestamp(0)
   updatedAt     DateTime  @default(now()) @db.Timestamp(0)
-  gallery       gallery[]
+  ic            ic[]
   player        player[]
   session       session[]
 }
@@ -68,13 +68,15 @@ model session {
   @@index([userID], map: "session_user_FK")
 }
 
-model gallery {
-  id        String   @id @db.VarChar(16)
-  userID    String   @db.VarChar(16)
-  path      String   @db.VarChar(500)
-  selected  Boolean  @default(false)
-  createdAt DateTime @default(now()) @db.Timestamp(0)
-  user      user     @relation(fields: [userID], references: [id], onDelete: Cascade, map: "gallery_user_FK")
+model ic {
+  id         String    @id @db.VarChar(16)
+  title      String    @db.VarChar(100)
+  content    String    @db.LongText
+  userID     String?   @db.VarChar(16)
+  location   String    @db.VarChar(100)
+  createdAt  DateTime  @default(now()) @db.Timestamp(0)
+  modifiedAt DateTime? @default(now()) @db.Timestamp(0)
+  user       user?     @relation(fields: [userID], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "ic_user_FK")
 
-  @@index([userID], map: "gallery_user_FK")
+  @@index([userID], map: "ic_user_FK")
 }

@@ -15,6 +15,7 @@ export default async function userLoginDB(
     const cookieStore = cookies();
     const userIP = await publicIpv4();
     const randomNano = nanoid(64);
+    const sessionStart = new Date();
 
     const findUserByUsername = await prisma.user.findUnique({
       where: {
@@ -52,6 +53,7 @@ export default async function userLoginDB(
       email: findUserByUsername.email,
       userIP,
       randomNano,
+      sessionStart,
     };
 
     const sealed = await Iron.seal(

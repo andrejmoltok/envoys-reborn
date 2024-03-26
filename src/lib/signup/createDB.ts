@@ -3,6 +3,7 @@
 import { signUpAuthType } from "@/lib/signup/signUpAuthType";
 import { prisma } from "@/lib/prisma/PrismaClient";
 import { nanoid } from "nanoid";
+import { v2 as cloudinary } from "cloudinary";
 const bcrypt = require("bcrypt");
 
 export default async function createDB(data: signUpAuthType) {
@@ -25,21 +26,12 @@ export default async function createDB(data: signUpAuthType) {
       data: {
         id: nanoid(16),
         userID: user,
-        path: "/base/default.jpg",
+        path: "/base/default_s3azbf.jpg",
         selected: true,
       },
     });
 
-    // await fetch("https://api.imagekit.io/v1/folder/", {
-    //   method: "POST",
-    //   headers: {
-    //     Authorization: btoa(`${process.env.IK_PRIVATE_KEY}` as string) + ":",
-    //   },
-    //   body: JSON.stringify({
-    //     folderName: `${user}`,
-    //     parentFolderPath: "/",
-    //   }),
-    // });
+    cloudinary.api.create_folder(`galleries/${user}`);
   } catch (error) {
     //TODO send notification with error.message to Admin UI
     console.error(error);

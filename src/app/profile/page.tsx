@@ -51,10 +51,6 @@ export default function Profile() {
     fetchAgreed();
   }, [isAuth]);
 
-  // const memoized = React.useMemo(() => {
-  //   return { player, path, agreedCheck };
-  // }, [player, path, agreedCheck]);
-
   return (
     <>
       <div className={styles.border}>

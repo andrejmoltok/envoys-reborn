@@ -7,6 +7,8 @@
 
 import type { Metadata } from "next";
 
+import { v2 as cloudinary } from "cloudinary";
+
 import React from "react";
 
 import "./globals.css";
@@ -33,6 +35,12 @@ export const metadata: Metadata = {
 const medievalSharp = localFont({
   src: "./font/MedievalSharp-Regular.ttf",
   display: "swap",
+});
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME as string,
+  api_key: process.env.CLOUDINARY_API_KEY as string,
+  api_secret: process.env.CLOUDINARY_API_SECRET as string,
 });
 
 export default function RootLayout({

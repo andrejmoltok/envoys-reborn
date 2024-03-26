@@ -20,7 +20,7 @@ export default async function setAgreed(): Promise<void> {
         id: unsealed?.userID,
       },
       data: {
-        agreed: 1,
+        agreed: true,
       },
     });
   } catch (error) {

@@ -3,4 +3,5 @@ export type UnsealObject = {
   email: string;
   userIP: string;
   randomNano: string;
+  sessionStart: Date;
 };
