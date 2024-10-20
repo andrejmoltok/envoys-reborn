@@ -7,8 +7,8 @@
  */
 
 export type signUpAuthType = {
-    username: string,
-    email: string,
-    password: string,
-    confirm: string
-}
+  username: string;
+  email: string;
+  password: string;
+  confirm: string;
+};

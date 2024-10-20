@@ -6,7 +6,7 @@
  */
 
 export type loginAuthType = {
-    username: string,
-    password: string,
-    confirm: string
-}
+  username: string;
+  password: string;
+  confirm: string;
+};

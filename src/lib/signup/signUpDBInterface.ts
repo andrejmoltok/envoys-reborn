@@ -14,19 +14,19 @@
  */
 
 export interface signUpDBInterface {
-    firstname: string,
-    lastname: string,
-    role: string,
-    sex: string,
-    race: string,
-    serial: string,
-    money: number,
-    level: number,
-    rank: string,
-    strength: number,
-    dexterity: number,
-    constitution: number,
-    intelligence: number,
-    wisdom: number,
-    charisma: number
+  firstname: string;
+  lastname: string;
+  role: string;
+  sex: string;
+  race: string;
+  serial: string;
+  money: number;
+  level: number;
+  rank: string;
+  strength: number;
+  dexterity: number;
+  constitution: number;
+  intelligence: number;
+  wisdom: number;
+  charisma: number;
 }

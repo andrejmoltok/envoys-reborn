@@ -8,44 +8,60 @@ datasource db {
 }
 
 model user {
-  id            String       @id @db.VarChar(32)
-  username      String       @db.VarChar(100)
-  email         String       @db.VarChar(100)
+  id            String    @id @db.VarChar(16)
+  username      String    @unique(map: "user_unique") @db.VarChar(100)
+  email         String    @db.VarChar(100)
   emailVerified Boolean
-  password      String       @db.VarChar(100)
-  createdAt     DateTime     @default(now()) @db.DateTime(0)
-  updatedAt     DateTime     @default(now()) @db.DateTime(0)
-  player        player?
-  sessionData   sessionData?
+  passwordHash  String    @db.VarChar(500)
+  agreed        Int       @default(0) @db.UnsignedTinyInt
+  createdAt     DateTime  @default(now()) @db.Timestamp(0)
+  updatedAt     DateTime  @default(now()) @db.Timestamp(0)
+  player        player[]
+  session       session[]
 }
 
 model player {
-  id           String   @id @db.VarChar(32)
-  userID       String   @unique(map: "player_unique") @db.VarChar(32)
-  firstname    String   @db.VarChar(100)
-  lastname     String   @db.VarChar(100)
-  role         String   @db.VarChar(100)
-  sex          String   @db.VarChar(100)
-  race         String   @db.VarChar(100)
-  serial       String   @db.VarChar(100)
-  money        Int      @default(100)
-  level        Int      @default(1)
-  rank         String   @db.VarChar(100)
-  strength     Int      @default(0)
-  dexterity    Int      @default(0)
-  constitution Int      @default(0)
-  intelligence Int      @default(0)
-  wisdom       Int      @default(0)
-  charisma     Int      @default(0)
-  createdAt    DateTime @default(now()) @db.DateTime(0)
-  updatedAt    DateTime @default(now()) @db.DateTime(0)
-  user         user     @relation(fields: [userID], references: [id], onDelete: Cascade, map: "player_user_FK")
+  id               String   @id @db.VarChar(16)
+  userID           String   @db.VarChar(16)
+  firstname        String   @db.VarChar(100)
+  lastname         String   @db.VarChar(100)
+  sex              String   @db.VarChar(100)
+  race             String   @db.VarChar(100)
+  rank             String   @db.VarChar(100)
+  serial           String   @db.VarChar(100)
+  gameStyle        String   @db.VarChar(100)
+  money            Int      @default(100) @db.UnsignedInt
+  level            Int      @default(1) @db.UnsignedInt
+  strength         Int      @default(0) @db.UnsignedInt
+  dexterity        Int      @default(0) @db.UnsignedInt
+  constitution     Int      @default(0) @db.UnsignedInt
+  intelligence     Int      @default(0) @db.UnsignedInt
+  wisdom           Int      @default(0) @db.UnsignedInt
+  charisma         Int      @default(0) @db.UnsignedInt
+  outerDesc        String?  @db.LongText
+  innerDesc        String?  @db.LongText
+  background       String?  @db.LongText
+  notes            String?  @db.LongText
+  belief           String?  @db.VarChar(100)
+  events           String?  @db.LongText
+  backpack         String?  @db.LongText
+  backpackContents Int      @default(0) @db.UnsignedInt
+  backpackSlots    Int      @default(3) @db.UnsignedInt
+  createdAt        DateTime @default(now()) @db.Timestamp(0)
+  updatedAt        DateTime @default(now()) @db.Timestamp(0)
+  user             user     @relation(fields: [userID], references: [id], onDelete: Cascade, map: "player_user_FK")
+
+  @@index([userID], map: "player_user_FK")
 }
 
-model sessionData {
-  id          Int      @id @default(autoincrement())
-  userID      String   @unique(map: "sessionData_unique") @db.VarChar(32)
-  sessionData String   @db.VarChar(100)
-  createdAt   DateTime @default(now()) @db.DateTime(0)
-  user        user     @relation(fields: [userID], references: [id], onDelete: Cascade, map: "sessionData_user_FK")
+model session {
+  id          String    @id @db.VarChar(16)
+  userID      String    @db.VarChar(16)
+  sessionData String    @db.VarChar(1500)
+  loginAt     DateTime  @default(now()) @db.Timestamp(0)
+  logoutAt    DateTime? @default(now()) @db.Timestamp(0)
+  status      String    @db.VarChar(100)
+  user        user      @relation(fields: [userID], references: [id], onDelete: Cascade, map: "sessionData_user_FK")
+
+  @@index([userID], map: "session_user_FK")
 }

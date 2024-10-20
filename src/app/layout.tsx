@@ -5,82 +5,85 @@
  * @Nav @Pole @Footer - components used to render the app-wide layout
  */
 
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
-import React from 'react';
+import React from "react";
 
-import './globals.css';
-import styles from '@/styles/Layout.module.css';
-import fill from '@/styles/Fill.module.css';
+import "./globals.css";
+import styles from "@/styles/Layout.module.css";
+import fill from "@/styles/Fill.module.css";
 
-import localFont from 'next/font/local';
+import localFont from "next/font/local";
 
-import Nav from '@/components/Nav';
-import Pole from '@/components/Pole';
-import Footer from '@/components/Footer';
+import Nav from "@/components/Nav";
+import Pole from "@/components/Pole";
+import Footer from "@/components/Footer";
+
+import AuthProvider from "@/context/AuthContextProvider/AuthProvider";
+import SessionProvider from "@/context/SessionContextProvider/SessionProvider";
 
 export const metadata: Metadata = {
   title: "Küldöttek: Újjászületés",
   description: "Középkori stílusú mágikus fantázia szerepjáték",
   icons: {
-    icon: '/newland.jpg',
-  }
+    icon: "/newland.jpg",
+  },
 };
 
 const medievalSharp = localFont({
-  src: './font/MedievalSharp-Regular.ttf',
-  display: 'swap',
+  src: "./font/MedievalSharp-Regular.ttf",
+  display: "swap",
 });
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <React.StrictMode>
-      <html lang="en">
-        <body className={medievalSharp.className}>
-
-          <header>
-            <div className={styles.border}>
-              <div className={styles.newland}>
-                <div className={styles.blur}>
-                  <div className={styles.title}>Küldöttek</div>
-                  <div className={styles.subtitle}>Újjászületés</div>
+      <SessionProvider>
+        <AuthProvider>
+          <html lang="en">
+            <body className={medievalSharp.className}>
+              <header>
+                <div className={styles.border}>
+                  <div className={styles.newland}>
+                    <div className={styles.blur}>
+                      <div className={styles.title}>Küldöttek</div>
+                      <div className={styles.subtitle}>Újjászületés</div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </header>
+              </header>
 
-          <Pole />
+              <Pole />
 
-          <nav>
-            <div className={styles.border}>
-              <div className={fill.fill}>
-                  <Nav />
-              </div>
-            </div>
-          </nav>
+              <nav>
+                <div className={styles.border}>
+                  <div className={fill.fill}>
+                    <Nav />
+                  </div>
+                </div>
+              </nav>
 
-          <Pole />
+              <Pole />
 
-          <main>
-            {children}
-          </main>
+              <main>{children}</main>
 
-          <Pole />
+              <Pole />
 
-          <footer>
-            <div className={styles.border}>
-              <div className={fill.fill}>
-                <Footer />
-              </div>
-            </div>
-          </footer>
-
-        </body>
-      </html>
+              <footer>
+                <div className={styles.border}>
+                  <div className={fill.fill}>
+                    <Footer />
+                  </div>
+                </div>
+              </footer>
+            </body>
+          </html>
+        </AuthProvider>
+      </SessionProvider>
     </React.StrictMode>
-  )
+  );
 }

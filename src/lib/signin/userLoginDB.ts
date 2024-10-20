@@ -1,48 +1,74 @@
-'use server'
+"use server";
 
-import type { loginAuthType } from '@/lib/signin/loginAuthType';
-import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
-import { nanoid } from 'nanoid';
-import { PrismaClient } from '@prisma/client';
-const bcrypt = require('bcrypt');
+import type { loginAuthType } from "@/lib/signin/loginAuthType";
+import { cookies } from "next/headers";
+import { nanoid } from "nanoid";
+import { prisma } from "@/lib/prisma/PrismaClient";
+import Iron from "@hapi/iron";
+import { publicIpv4 } from "public-ip";
+const bcrypt = require("bcrypt");
 
-export default async function userLoginDB(login:loginAuthType): Promise<void> {
-
+export default async function userLoginDB(
+  login: loginAuthType
+): Promise<{ success: boolean; error?: string }> {
+  try {
     const cookieStore = cookies();
+    const userIP = await publicIpv4();
+    const randomNano = nanoid(64);
 
-    const prisma = new PrismaClient();
+    const findUserByUsername = await prisma.user.findUnique({
+      where: {
+        username: login.username,
+      },
+    });
 
-        try {
-            const passwordHash = await bcrypt.hash(login.password, 8);
-            const matched = await bcrypt.compare(login.password, passwordHash);
+    if (!findUserByUsername) {
+      return { success: false, error: "A megadott felhasználónév hibás" };
+    }
 
-            if (matched) {
-                cookieStore.set("userSessionID", nanoid(32), { 
-                    httpOnly: true,
-                    secure: true,
-                    sameSite: 'lax'
-                });
+    const passMatchUser = await bcrypt.compare(
+      login.password,
+      findUserByUsername.passwordHash
+    );
 
-                const findUser = await prisma.user.findFirst({
-                    where: {
-                        username: login.username
-                    }
-                });
-                
-                const getCookie = cookieStore.get('userSessionID');
-                
-                await prisma.sessionData.create({
-                    data: {
-                        userID: findUser?.id as string,
-                        sessionData: getCookie?.value as string
-                    }
-                });
+    if (!passMatchUser) {
+      return { success: false, error: "A megadott jelszó hibás" };
+    }
 
-            }
-        } catch (error) {
-            redirect("/signin");
-        }
+    const sessionTokenByUser = {
+      userID: findUserByUsername.id,
+      email: findUserByUsername.email,
+      userIP,
+      randomNano,
+    };
 
-        await prisma.$disconnect();
+    const sealed = await Iron.seal(
+      sessionTokenByUser,
+      process.env.IRONPASS as string,
+      Iron.defaults
+    );
+
+    cookieStore.set("userSession", sealed, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax",
+    });
+
+    await prisma.session.create({
+      data: {
+        id: nanoid(16),
+        userID: findUserByUsername.id,
+        sessionData: sealed,
+        loginAt: new Date(),
+        status: "active",
+      },
+    });
+
+    await prisma.$disconnect();
+    return { success: true };
+  } catch (error) {
+    console.error("Error during login:", error);
+    await prisma.$disconnect();
+    return { success: false, error: "Hiba történt a bejelentkezés során" };
+  }
 }
